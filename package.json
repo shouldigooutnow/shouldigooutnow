@@ -5,7 +5,7 @@
   "scripts": {
     "build": "EXTEND_ESLINT=true react-app-rewired build",
     "check:node": "check-node-version --package",
-    "ci": "CI=TRUE yarn build && CI=TRUE yarn test",
+    "ci": "CI=TRUE yarn build && CI=TRUE yarn test --passWithNoTests",
     "format:js": "prettier --write 'src/**/*.{js,jsx,json,css,scss,md}'",
     "postinstall": "yarn run check:node",
     "start": "EXTEND_ESLINT=true react-app-rewired start",
