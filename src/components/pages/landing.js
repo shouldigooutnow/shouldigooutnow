@@ -4,7 +4,7 @@ import { Activity } from '../activity'
 
 import * as Model from '../../model'
 
-export default class Landing extends React.Component {
+export class Landing extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

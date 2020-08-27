@@ -1,5 +1,5 @@
 import React from 'react'
-import Landing from '@/components/pages/landing'
+import { Landing } from '@/components/pages/landing'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import URI from 'urijs'
 
