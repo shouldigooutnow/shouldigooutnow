@@ -4,7 +4,7 @@ import { Activity } from '../activity'
 
 import * as Model from '../../model'
 
-class Home extends React.Component {
+export class Landing extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -45,5 +45,3 @@ class Home extends React.Component {
     )
   }
 }
-
-export default Home

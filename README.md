@@ -1,4 +1,16 @@
+## Should I Go Outside Now?
 
-## Ejecting
+Trying to do better than: ¯\\\_(ツ)\_/¯
 
-Do not eject unless you absolutely have to. It loses most of the benefits of using this. We're using rewired to edit webpack config.
+### Contributing
+
+#### Setup
+
+Node 13 latest
+
+Install Yarn
+
+```
+yarn install
+yarn start
+```
