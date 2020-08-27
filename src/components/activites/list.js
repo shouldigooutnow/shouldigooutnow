@@ -6,8 +6,9 @@ import { Probability } from '@/components/core/probability'
 
 const Activity = props => (
   <Card className="m-2">
-    <p className="text-lg font-semibold mb-8">
-      {props.activityName} for {formatMins(props.durationMins)} with {props.numberOfPeoplePresent} people
+    <p className="text-lg font-semibold">{props.activityName}</p>
+    <p className="text-md font-semibold mb-8">
+      {formatMins(props.durationMins)} with {props.numberOfPeoplePresent} people
     </p>
     <p className="text-md mt-4 mb-2">
       <Probability probability={props.probSomeonePresentHasCovid} />
