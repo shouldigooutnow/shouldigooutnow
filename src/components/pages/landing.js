@@ -32,10 +32,10 @@ export class Landing extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Should I go out now?!!</h1>
-        <div>You have {this.state.activities.length} activities</div>
-        <div>Your total chance of meeting your maker today is {this.state.highLevelProbs.probContractingCovid}</div>
+      <div className="container mx-auto">
+        <p className="text-3xl">Should I go out now?!!</p>
+        <p>You have {this.state.activities.length} activities</p>
+        <p>Your total chance of meeting your maker today is {this.state.highLevelProbs.probContractingCovid}</p>
         <div>
           {this.state.activities.map(activity => (
             <Activity {...activity} />

@@ -1,12 +1,7 @@
 const path = require('path')
+const { override, addPostcssPlugins, addWebpackAlias } = require('customize-cra')
 
-module.exports = {
-  webpack: (config, env) => {
-    // See this guide: https://github.com/facebook/create-react-app/issues/5118#issuecomment-464025389
-    config.resolve = {
-      ...config.resolve,
-      alias: { '@': path.resolve(__dirname, 'src') },
-    };
-    return config
-  },
-}
+module.exports = override(
+  addWebpackAlias({ ['@']: path.resolve(__dirname, 'src') }),
+  addPostcssPlugins([require('tailwindcss'), require('autoprefixer')])
+)
