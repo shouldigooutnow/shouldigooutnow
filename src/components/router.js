@@ -19,11 +19,9 @@ export const Router = () => (
             key={route.path}
             path={route.path}
             render={routerProps => {
-              console.log('x')
               const queryParams = URI()
                 .query(routerProps.history.location.search)
                 .query(true)
-              console.log(route)
               const Component = route.component
               const props = { ...route.props, ...routerProps, queryParams }
               return <Component {...props} />
