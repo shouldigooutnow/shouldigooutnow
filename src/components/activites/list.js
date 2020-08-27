@@ -5,7 +5,7 @@ import { formatMins, formatProbability } from '@/common/format'
 
 const Activity = props => (
   <Card className="m-2">
-    <p className="text-lg text-black mb-8">
+    <p className="text-lg font-semibold mb-8">
       {props.activityName} for {formatMins(props.durationMins)} with {props.numberOfPeoplePresent} people
     </p>
     <p className="text-md mt-4 mb-2">
