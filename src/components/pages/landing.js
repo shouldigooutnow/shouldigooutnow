@@ -1,47 +1,32 @@
-import React from 'react'
-
-import { Activity } from '../activity'
+import React, { useState } from 'react'
+import _ from 'lodash'
+import { ActivityList } from '@/components/activites/list'
+import { NewActivity } from '@/components/activites/new'
+import { Probability } from '@/components/core/probability'
 
 import * as Model from '../../model'
 
-export class Landing extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      activities: [
-        {
-          durationMins: 10,
-          activity: 'indoors',
-          numberOfPeoplePresent: 5
-        }
-      ],
-      probs: [],
-      highLevelProbs: {}
-    }
-  }
-
-  componentDidMount = () => {
-    this.calcProbs()
-  }
-
-  calcProbs = () => {
-    const activitesWithProbs = Model.calculateCovidProbs(this.state.activities)
-    const highLevelProbs = Model.calculateHighLevelProbs(activitesWithProbs)
-    this.setState({ probs: activitesWithProbs, highLevelProbs: highLevelProbs })
-  }
-
-  render() {
-    return (
-      <div className="container mx-auto">
-        <p className="text-3xl">Should I go out now?!!</p>
-        <p>You have {this.state.activities.length} activities</p>
-        <p>Your total chance of meeting your maker today is {this.state.highLevelProbs.probContractingCovid}</p>
-        <div>
-          {this.state.activities.map(activity => (
-            <Activity {...activity} />
-          ))}
+export const Landing = () => {
+  const [activities, setActivities] = useState([])
+  const activitesWithProbs = Model.calculateCovidProbs(activities)
+  const highLevelProbs = Model.calculateHighLevelProbs(activitesWithProbs)
+  return (
+    <div className="container mx-auto py-6">
+      <p className="text-3xl mb-4">Should I go out now?!!</p>
+      <NewActivity onCreate={activity => setActivities([...activities, activity])} />
+      {!_.isEmpty(activitesWithProbs) && (
+        <div className="my-8">
+          <p className="text-3xl mb-4">
+            <Probability className="text-3xl" probability={highLevelProbs.probSomeonePresentHasCovid} />
+            chance someone present has Covid
+          </p>
+          <p className="text-3xl mb-4">
+            <Probability className="text-3xl bg-teal-500" probability={highLevelProbs.probContractingCovid} />
+            chance contracting Covid
+          </p>
+          <ActivityList activities={activitesWithProbs} />
         </div>
-      </div>
-    )
-  }
+      )}
+    </div>
+  )
 }
