@@ -1,98 +1,65 @@
-const assumptions = {
-  probSomeoneHasCovid: 0.0013, // https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19
-  probTransmissionPerHour: {
-    indoors: 0.4,
-    indoorsOthersFaceCovered: 0.3,
-    outdoors: 0.15,
-    outdoors2MeterDistancing: 0.05
-  }
+import { combinations } from 'mathjs'
+import { PROB_COVID, PROB_TRANSMISSION } from './assumptions'
+
+// The probability that x happens exacltly k times out of n
+const binomialProbability = (trials, successes, prob_of_success) => {
+  console.log('called bin prob')
+  return combinations(trials, successes) * Math.pow(prob_of_success, successes) * Math.pow(1 - prob_of_success, trials - successes)
 }
 
-// TODO: Find a math function for this?
-const factorial = n => {
-  return n > 1 ? n * factorial(n - 1) : 1
+// // The probability that x happens upto k times out of n
+// const cumulativeBinomialProbability = (trials, successes, prob_of_success) => {
+//   let cumulative = 0
+
+//   for (let i = 0; i <= successes; ++i) {
+//     cumulative = cumulative + binomialProbability(trials, i, prob_of_success)
+//   }
+
+//   return cumulative
+// }
+
+const calcExpectedNumberOfPeopleWithCovid = (numberOfPeople, covidProbability) => {
+  return numberOfPeople * covidProbability
 }
 
-// 𝑃(𝑋=0) = (𝜆^0 . 𝑒^−𝜆) / 0! = 𝑒^−𝜆      <---- Probability no occurance in 1 hour
-// 𝑒^−𝜆 = p      ...    𝜆 = -ln(p)
-// and therefor probability by time:
-// 1−[ ( 𝑡 . -ln(p) / 60 )^0 . 𝑒^[−𝑡.-ln(p)/60] / (0!)] = 1 − [ 𝑒^−𝑡.-ln(p)/60 ]
-const calcProbOfTransmissionFromActivity = (probTransmissionPerHour, activityDurationMins) => {
-  const probNoTransmissionPerHour = 1 - probTransmissionPerHour
-  const lambda = Math.log(probNoTransmissionPerHour) * -1
-  const activityProbNoTransmission = Math.exp((-1 * activityDurationMins * lambda) / 60)
-  const activityProbTransmission = 1 - activityProbNoTransmission
-
-  return activityProbTransmission
+// Things to calculate:
+//  - Probability of transmission by event
+//    This is: ExpectedNumberOfPeopleWithCovid * TransmissionRatePerHour * NumberOfHours
+//  We assume
+//    - linear transmission probability, 2 mins is twice as bad as 1 min.
+//    - if more people have covid, the chances you will get it increase
+const infectionProbability = (numberOfPeople, covidProbability, hourlyTransmissionProbability, eventDurationMins) => {
+  const expectedNumberOfPeopleWithCovid = calcExpectedNumberOfPeopleWithCovid(numberOfPeople, covidProbability)
+  return expectedNumberOfPeopleWithCovid
 }
-
-const calcProbContractingCovid = (activity, probSomeonePresentHasCovid, assumptions) => {
-  return (
-    probSomeonePresentHasCovid *
-    calcProbOfTransmissionFromActivity(assumptions.probTransmissionPerHour[activity.activity], activity.durationMins)
-  )
-}
-
-// binomial probability:
-const calcProbNobodyHasCovid = (numberOfPeople, probSomeoneHasCovid) => {
-  const n = numberOfPeople // set n = size of set = number of people
-  const p = 1 - probSomeoneHasCovid // set p = probability person does not have covid
-  const k = n // set k = size of successes = total number of people
-  return ((factorial(n) / factorial(n - k)) * (p ^ k) * (1 - p)) ^ (n - k)
-}
-
-const calcProbSomeonePresentHasCovid = (numberOfPeople, probSomeoneHasCovid) => {
-  return 1 - calcProbNobodyHasCovid(numberOfPeople, probSomeoneHasCovid)
-}
-
-const calcAverageNumberOfPeopleThatHaveCovid = (numberOfPeople, probSomeoneHasCovid) => {
-  return numberOfPeople * probSomeoneHasCovid
-}
-
-const activitiesList = [
-  {
-    durationMins: 10,
-    activity: 'indoors',
-    numberOfPeoplePresent: 5
-  },
-  {
-    durationMins: 60,
-    activity: 'indoorsOthersFaceCovered',
-    numberOfPeoplePresent: 1000
-  },
-  {
-    durationMins: 60,
-    activity: 'outdoors',
-    numberOfPeoplePresent: 1000
-  },
-  {
-    durationMins: 60,
-    activity: 'outdoors',
-    numberOfPeoplePresent: 1000
-  }
-]
 
 const calculateCovidProb = activity => {
-  const probSomeonePresentHasCovid = calcProbSomeonePresentHasCovid(activity.numberOfPeoplePresent, assumptions.probSomeoneHasCovid)
-  const probContractingCovid = calcProbContractingCovid(activity, probSomeonePresentHasCovid, assumptions)
+  console.log(activity)
+  console.log(PROB_TRANSMISSION[activity.activity])
+  const probSomeonePresentHasCovid = binomialProbability(activity.numberOfPeoplePresent, 1, PROB_COVID)
+  const probContractingCovid = infectionProbability(
+    activity.numberOfPeople,
+    PROB_COVID,
+    PROB_TRANSMISSION[activity.activity],
+    activity.durationMins
+  )
   return {
     ...activity,
     probSomeonePresentHasCovid,
     probNobodyPresentHasCovid: 1 - probSomeonePresentHasCovid,
-    averageNumberPeopleWithCovid: calcAverageNumberOfPeopleThatHaveCovid(activity.numberOfPeoplePresent, assumptions.probSomeoneHasCovid),
+    expectedNumberPeopleWithCovid: calcExpectedNumberOfPeopleWithCovid(activity.numberOfPeoplePresent, PROB_COVID),
     probContractingCovid,
     probNotContractingCovid: 1 - probContractingCovid
   }
 }
 
-const calculateCovidProbs = activities => {
-  return activities.map(calculateCovidProb)
+export const calculateCovidProbs = activities => {
+  return activities.map(a => calculateCovidProb(a))
 }
 
-const activitesWithProbs = calculateCovidProbs(activitiesList)
-const highLevelProbs = {
-  probSomeonePresentHasCovid: 1 - activitesWithProbs.reduce((result, activity) => result * activity.probNobodyPresentHasCovid, 1),
-  probContractingCovid: 1 - activitesWithProbs.reduce((result, activity) => result * activity.probNotContractingCovid, 1)
+export const calculateHighLevelProbs = activitiesWithProbs => {
+  return {
+    probSomeonePresentHasCovid: 1 - activitiesWithProbs.reduce((result, activity) => result * activity.probNobodyPresentHasCovid, 1),
+    probContractingCovid: 1 - activitiesWithProbs.reduce((result, activity) => result * activity.probNotContractingCovid, 1)
+  }
 }
-console.log(activitesWithProbs)
-console.log('Summary of all activities:', highLevelProbs)
