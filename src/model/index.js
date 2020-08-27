@@ -8,19 +8,37 @@ const assumptions = {
   }
 }
 
-const probOfTransmissionPerMinForActivity = (assumptions, activity) => {
-  return assumptions.probTransmissionPerHour[activity] / 60
+// TODO: Find a math function for this?
+const factorial = n => {
+  return n > 1 ? n * factorial(n - 1) : 1
+}
+
+// 𝑃(𝑋=0) = (𝜆^0 . 𝑒^−𝜆) / 0! = 𝑒^−𝜆      <---- Probability no occurance in 1 hour
+// 𝑒^−𝜆 = p      ...    𝜆 = -ln(p)
+// and therefor probability by time:
+// 1−[ ( 𝑡 . -ln(p) / 60 )^0 . 𝑒^[−𝑡.-ln(p)/60] / (0!)] = 1 − [ 𝑒^−𝑡.-ln(p)/60 ]
+const calcProbOfTransmissionFromActivity = (probTransmissionPerHour, activityDurationMins) => {
+  const probNoTransmissionPerHour = 1 - probTransmissionPerHour
+  const lambda = Math.log(probNoTransmissionPerHour) * -1
+  const activityProbNoTransmission = Math.exp((-1 * activityDurationMins * lambda) / 60)
+  const activityProbTransmission = 1 - activityProbNoTransmission
+
+  return activityProbTransmission
 }
 
 const calcProbContractingCovid = (activity, probSomeonePresentHasCovid, assumptions) => {
-  const probOfTransmissionPerMin = probOfTransmissionPerMinForActivity(assumptions, activity.activity)
-  const probOfNoTransmission = Math.pow(1 - probOfTransmissionPerMin, activity.durationMins)
-  const probOfTransmission = 1 - probOfNoTransmission
-  return probSomeonePresentHasCovid * probOfTransmission
+  return (
+    probSomeonePresentHasCovid *
+    calcProbOfTransmissionFromActivity(assumptions.probTransmissionPerHour[activity.activity], activity.durationMins)
+  )
 }
 
+// binomial probability:
 const calcProbNobodyHasCovid = (numberOfPeople, probSomeoneHasCovid) => {
-  return Math.pow(1 - probSomeoneHasCovid, numberOfPeople)
+  const n = numberOfPeople // set n = size of set = number of people
+  const p = 1 - probSomeoneHasCovid // set p = probability person does not have covid
+  const k = n // set k = size of successes = total number of people
+  return ((factorial(n) / factorial(n - k)) * (p ^ k) * (1 - p)) ^ (n - k)
 }
 
 const calcProbSomeonePresentHasCovid = (numberOfPeople, probSomeoneHasCovid) => {
