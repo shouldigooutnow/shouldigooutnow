@@ -35,7 +35,11 @@ const calcExpectedNumberOfPeopleWithCovid = (numberOfPeople, covidProbability) =
 //    - if more people have covid, the chances you will get it increase
 const infectionProbability = (numberOfPeople, covidProbability, hourlyTransmissionProbability, eventDurationMins) => {
   const expectedNumberOfPeopleWithCovid = calcExpectedNumberOfPeopleWithCovid(numberOfPeople, covidProbability)
-  const expectedInfectionRate = cumulativeBinomialProbability(numberOfPeople, numberOfPeople, covidProbability)
+  const expectedInfectionRate = cumulativeBinomialProbability(
+    numberOfPeople,
+    numberOfPeople,
+    (eventDurationMins * hourlyTransmissionProbability) / 60
+  )
   return expectedNumberOfPeopleWithCovid * Math.min(1, expectedInfectionRate)
 }
 
