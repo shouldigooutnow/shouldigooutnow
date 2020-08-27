@@ -23,7 +23,7 @@
     ],
     "src/**/!(tailwind)*.{js,jsx,json,css,scss,md}": [
       "prettier --write",
-      "eslint --max-warnings=1",
+      "eslint --max-warnings=0",
       "git add"
     ]
   },
