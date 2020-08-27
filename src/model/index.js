@@ -1,80 +1,69 @@
-const assumptions = {
-  probSomeoneHasCovid: 0.0013, // https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19
-  probTransmissionPerHour: {
-    indoors: 0.4,
-    indoorsOthersFaceCovered: 0.3,
-    outdoors: 0.15,
-    outdoors2MeterDistancing: 0.05
+import { combinations } from 'mathjs'
+import { PROB_COVID, PROB_TRANSMISSION } from './assumptions'
+
+// The probability that x happens exacltly k times out of n
+const binomialProbability = (trials, successes, prob_of_success) => {
+  const p = Math.min(1, prob_of_success)
+  return combinations(trials, successes) * Math.pow(p, successes) * Math.pow(1 - p, trials - successes)
+}
+
+// The probability that x happens upto k times out of n
+const cumulativeBinomialProbability = (trials, successes, prob_of_success) => {
+  let cumulative = 0
+
+  for (let i = 0; i <= successes; ++i) {
+    cumulative = cumulative + binomialProbability(trials, i, prob_of_success)
+
+    if (cumulative >= 1) {
+      cumulative = 1
+      break
+    }
   }
+
+  return cumulative
 }
 
-const probOfTransmissionPerMinForActivity = (assumptions, activity) => {
-  return assumptions.probTransmissionPerHour[activity] / 60
+const calcExpectedNumberOfPeopleWithCovid = (numberOfPeople, covidProbability) => {
+  return numberOfPeople * covidProbability
 }
 
-const calcProbContractingCovid = (activity, probSomeonePresentHasCovid, assumptions) => {
-  const probOfTransmissionPerMin = probOfTransmissionPerMinForActivity(assumptions, activity.activity)
-  const probOfNoTransmission = Math.pow(1 - probOfTransmissionPerMin, activity.durationMins)
-  const probOfTransmission = 1 - probOfNoTransmission
-  return probSomeonePresentHasCovid * probOfTransmission
+// Things to calculate:
+//  - Probability of transmission by event
+//    This is: ExpectedNumberOfPeopleWithCovid * TransmissionRatePerHour * NumberOfHours
+//  We assume
+//    - linear transmission probability, 2 mins is twice as bad as 1 min.
+//    - if more people have covid, the chances you will get it increase
+const infectionProbability = (numberOfPeople, covidProbability, hourlyTransmissionProbability, eventDurationMins) => {
+  const expectedNumberOfPeopleWithCovid = calcExpectedNumberOfPeopleWithCovid(numberOfPeople, covidProbability)
+  const expectedInfectionRate = cumulativeBinomialProbability(numberOfPeople, numberOfPeople, covidProbability)
+  return expectedNumberOfPeopleWithCovid * Math.min(1, expectedInfectionRate)
 }
-
-const calcProbNobodyHasCovid = (numberOfPeople, probSomeoneHasCovid) => {
-  return Math.pow(1 - probSomeoneHasCovid, numberOfPeople)
-}
-
-const calcProbSomeonePresentHasCovid = (numberOfPeople, probSomeoneHasCovid) => {
-  return 1 - calcProbNobodyHasCovid(numberOfPeople, probSomeoneHasCovid)
-}
-
-const calcAverageNumberOfPeopleThatHaveCovid = (numberOfPeople, probSomeoneHasCovid) => {
-  return numberOfPeople * probSomeoneHasCovid
-}
-
-const activitiesList = [
-  {
-    durationMins: 10,
-    activity: 'indoors',
-    numberOfPeoplePresent: 5
-  },
-  {
-    durationMins: 60,
-    activity: 'indoorsOthersFaceCovered',
-    numberOfPeoplePresent: 1000
-  },
-  {
-    durationMins: 60,
-    activity: 'outdoors',
-    numberOfPeoplePresent: 1000
-  },
-  {
-    durationMins: 60,
-    activity: 'outdoors',
-    numberOfPeoplePresent: 1000
-  }
-]
 
 const calculateCovidProb = activity => {
-  const probSomeonePresentHasCovid = calcProbSomeonePresentHasCovid(activity.numberOfPeoplePresent, assumptions.probSomeoneHasCovid)
-  const probContractingCovid = calcProbContractingCovid(activity, probSomeonePresentHasCovid, assumptions)
+  const probSomeonePresentHasCovid = binomialProbability(activity.numberOfPeoplePresent, 1, PROB_COVID)
+  const probContractingCovid = infectionProbability(
+    activity.numberOfPeoplePresent,
+    PROB_COVID,
+    PROB_TRANSMISSION[activity.activity],
+    activity.durationMins
+  )
   return {
     ...activity,
     probSomeonePresentHasCovid,
     probNobodyPresentHasCovid: 1 - probSomeonePresentHasCovid,
-    averageNumberPeopleWithCovid: calcAverageNumberOfPeopleThatHaveCovid(activity.numberOfPeoplePresent, assumptions.probSomeoneHasCovid),
+    expectedNumberPeopleWithCovid: calcExpectedNumberOfPeopleWithCovid(activity.numberOfPeoplePresent, PROB_COVID),
     probContractingCovid,
     probNotContractingCovid: 1 - probContractingCovid
   }
 }
 
-const calculateCovidProbs = activities => {
-  return activities.map(calculateCovidProb)
+export const calculateCovidProbs = activities => {
+  return activities.map(a => calculateCovidProb(a))
 }
 
-const activitesWithProbs = calculateCovidProbs(activitiesList)
-const highLevelProbs = {
-  probSomeonePresentHasCovid: 1 - activitesWithProbs.reduce((result, activity) => result * activity.probNobodyPresentHasCovid, 1),
-  probContractingCovid: 1 - activitesWithProbs.reduce((result, activity) => result * activity.probNotContractingCovid, 1)
+export const calculateHighLevelProbs = activitiesWithProbs => {
+  return {
+    probSomeonePresentHasCovid: 1 - activitiesWithProbs.reduce((result, activity) => result * activity.probNobodyPresentHasCovid, 1),
+    probContractingCovid: Math.min(1, 1 - activitiesWithProbs.reduce((result, activity) => result * activity.probNotContractingCovid, 1))
+  }
 }
-console.log(activitesWithProbs)
-console.log('Summary of all activities:', highLevelProbs)
