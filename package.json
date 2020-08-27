@@ -21,7 +21,7 @@
       "sort-package-json",
       "git add"
     ],
-    "src/**/*.{js,jsx,json,css,scss,md}": [
+    "src/**/!(tailwind)*.{js,jsx,json,css,scss,md}": [
       "prettier --write",
       "eslint --max-warnings=0",
       "git add"
@@ -44,6 +44,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "check-node-version": "^4.0.1",
+    "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^6.2.0",
     "eslint-plugin-prettier": "^3.1.0",
     "husky": "^3.0.5",
@@ -56,6 +57,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0",
     "sort-package-json": "^1.22.1",
+    "tailwindcss": "^1.7.5",
     "urijs": "^1.19.2"
   },
   "engines": {
