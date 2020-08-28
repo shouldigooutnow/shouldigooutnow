@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "EXTEND_ESLINT=true react-app-rewired build",
+    "build": "([[ -d ./build ]] && rm -r ./build) && EXTEND_ESLINT=true react-app-rewired build",
     "check:node": "check-node-version --package",
     "ci": "CI=TRUE yarn build && CI=TRUE yarn test --passWithNoTests",
     "format:js": "prettier --write 'src/**/*.{js,jsx,json,css,scss,md}'",

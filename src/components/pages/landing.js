@@ -24,7 +24,12 @@ export const Landing = () => {
             <Probability className="text-3xl bg-teal-500" probability={highLevelProbs.probContractingCovid} />
             chance contracting Covid
           </p>
-          <ActivityList activities={activitesWithProbs} />
+          <ActivityList
+            activities={activitesWithProbs}
+            onDelete={activityIndex => {
+              setActivities(_.reject(activities, (a, i) => i === activityIndex))
+            }}
+          />
         </div>
       )}
     </div>
