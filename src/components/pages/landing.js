@@ -13,7 +13,7 @@ export const Landing = () => {
   const highLevelProbs = Model.calculateHighLevelProbs(activitesWithProbs)
   return (
     <Shell>
-      <p className="text-3xl mb-4">Should I go out now?</p>
+      <p className="text-3xl mb-4 text-teal-600 font-bold">Should I go out now?</p>
       <p className="text-lg mb-4">A model to help think about how to behave during the Covid-19 Pandemic</p>
       <p className="text-md mb-4">
         Read about our{' '}
@@ -24,7 +24,15 @@ export const Landing = () => {
       <NewActivity onCreate={activity => setActivities([...activities, activity])} />
       {!_.isEmpty(activitesWithProbs) && (
         <div className="border-t border-gray-400 py-8">
-          <p className="text-3xl mb-4">
+          <ActivityList
+            activities={activitesWithProbs}
+            onDelete={activityIndex => {
+              setActivities(_.reject(activities, (a, i) => i === activityIndex))
+            }}
+          />
+          <div className="border-t border-gray-400 mt-8"></div>
+          <p className="text-3xl my-4 mb-4">Total Risk:</p>
+          <p className="text-3xl my-8 mb-4">
             <Probability className="text-3xl" probability={highLevelProbs.probSomeonePresentHasCovid} />
             chance someone present has Covid
           </p>
@@ -32,12 +40,6 @@ export const Landing = () => {
             <Probability className="text-3xl bg-teal-500" probability={highLevelProbs.probContractingCovid} />
             chance contracting Covid
           </p>
-          <ActivityList
-            activities={activitesWithProbs}
-            onDelete={activityIndex => {
-              setActivities(_.reject(activities, (a, i) => i === activityIndex))
-            }}
-          />
         </div>
       )}
     </Shell>

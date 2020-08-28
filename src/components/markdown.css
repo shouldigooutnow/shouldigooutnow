@@ -32,7 +32,7 @@
 }
 
 .markdown h1 {
-  @apply leading-tight border-b text-4xl font-semibold mb-4 mt-6 pb-2;
+  @apply leading-tight border-b text-4xl text-teal-600 font-semibold mb-4 mt-6 pb-2;
 }
 
 .markdown h2 {
