@@ -21,9 +21,13 @@
       "sort-package-json",
       "git add"
     ],
-    "src/**/!(tailwind)*.{js,jsx,json,css,scss,md}": [
+    "src/**/!(tailwind)*.{js,jsx}": [
       "prettier --write",
       "eslint --max-warnings=0",
+      "git add"
+    ],
+    "src/**/!(tailwind)*.{json,css,scss,md}": [
+      "prettier --write",
       "git add"
     ]
   },

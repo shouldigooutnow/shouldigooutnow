@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { ActivityList } from '@/components/activites/list'
 import { NewActivity } from '@/components/activites/new'
 import { Probability } from '@/components/core/probability'
+import { Shell } from '@/components/core/shell'
 
 import * as Model from '../../model'
 
@@ -11,7 +12,7 @@ export const Landing = () => {
   const activitesWithProbs = Model.calculateCovidProbs(activities)
   const highLevelProbs = Model.calculateHighLevelProbs(activitesWithProbs)
   return (
-    <div className="container mx-auto py-6">
+    <Shell>
       <p className="text-3xl mb-4">Should I go out now?!!</p>
       <NewActivity onCreate={activity => setActivities([...activities, activity])} />
       {!_.isEmpty(activitesWithProbs) && (
@@ -32,6 +33,6 @@ export const Landing = () => {
           />
         </div>
       )}
-    </div>
+    </Shell>
   )
 }
