@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "([[ -d ./build ]] && rm -r ./build) && EXTEND_ESLINT=true react-app-rewired build",
+    "build": "rimraf ./build && EXTEND_ESLINT=true react-app-rewired build",
     "check:node": "check-node-version --package",
     "ci": "CI=TRUE yarn build && CI=TRUE yarn test --passWithNoTests",
     "format:js": "prettier --write 'src/**/*.{js,jsx,json,css,scss,md}'",
@@ -58,6 +58,7 @@
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0",
+    "rimraf": "^3.0.2",
     "sort-package-json": "^1.22.1",
     "tailwindcss": "^1.7.5",
     "urijs": "^1.19.2"
