@@ -13,7 +13,14 @@ export const Landing = () => {
   const highLevelProbs = Model.calculateHighLevelProbs(activitesWithProbs)
   return (
     <Shell>
-      <p className="text-3xl mb-4">Should I go out now?!!</p>
+      <p className="text-3xl mb-4">Should I go out now?</p>
+      <p className="text-lg mb-4">A model to help think about how to behave during the Covid-19 Pandemic</p>
+      <p className="text-md mb-4">
+        Read about our{' '}
+        <a className="text-teal-600" href="/methodology">
+          methodology and assumptions
+        </a>
+      </p>
       <NewActivity onCreate={activity => setActivities([...activities, activity])} />
       {!_.isEmpty(activitesWithProbs) && (
         <div className="my-8">

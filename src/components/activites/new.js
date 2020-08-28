@@ -32,6 +32,7 @@ export const NewActivity = props => {
           setNumberOfPeoplePresent(defaultActivity.numberOfPeoplePresent)
         }}
       >
+        <p className="text-lg mb-4">Add activites</p>
         <div className="flex flex-wrap -mx-3">
           <div className="md:w-1/2 px-3">
             <Label htmlFor="activity">Activity</Label>
