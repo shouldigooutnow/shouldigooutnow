@@ -23,7 +23,7 @@ export const Landing = () => {
       </p>
       <NewActivity onCreate={activity => setActivities([...activities, activity])} />
       {!_.isEmpty(activitesWithProbs) && (
-        <div className="my-8">
+        <div className="border-t border-gray-400 py-8">
           <p className="text-3xl mb-4">
             <Probability className="text-3xl" probability={highLevelProbs.probSomeonePresentHasCovid} />
             chance someone present has Covid
