@@ -1,14 +1,14 @@
 # Should I go out now?
 
-Covid-19 has subsided in some places, but how should people behave? During the height of the pandemic it was clear how you should behave - stay at home if you can and shelter in place. Now, as things improve, it's difficult to know how best to behave. The risks are definitely lower than the height of the pandemic.
+Covid-19 has subsided in some places, but how should people behave? During the height of the pandemic it was clear how you should behave - stay at home if you can and shelter in place. Now, as things improve, it's difficult to know how best to behave.
 
-We see friends and family making decisions based on intuition or fatigue of the restrictions on their normal lifestyle.
+We've seen friends and family making decisions based on intuition or fatigue of the restrictions on their normal lifestyle.
 
-We don't think there has been enough discussion about how to behave based on the real risks that exist today. We hope that others (smarter people!) begin to build models to help the public make decisions on how to behave.
+We don't think there has been enough discussion about how to behave based on the real risks that exist today. We hope that other, smarter people, begin to build models to help the public make decisions on how to behave.
 
 ## Transmission
 
-Even now, there is a lot we don't know about Covid-19 transmission. Putting absolute probabilities on transmission rates in various environments is difficult and currently impossible to get right.
+Even now, there is a lot we don't know about Covid-19 transmission. Putting absolute probabilities on transmission rates in various environments is impossible to get right.
 
 [This model](/) accounts for the following transmission methods:
 
