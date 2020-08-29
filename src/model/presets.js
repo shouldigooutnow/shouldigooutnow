@@ -32,10 +32,10 @@ export const probTransmissionPresets = [
     description: 'Medium',
     source: null,
     probabilities: {
-      indoors: 0.4,
-      indoorsOthersFaceCovered: 0.3,
-      outdoors: 0.15,
-      outdoors2MeterDistancing: 0.05
+      indoors: 0.25,
+      indoorsOthersFaceCovered: 0.2,
+      outdoors: 0.08,
+      outdoors2MeterDistancing: 0.03
     }
   },
   {

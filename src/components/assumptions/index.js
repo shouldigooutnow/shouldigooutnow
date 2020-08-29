@@ -54,7 +54,7 @@ export const Assumptions = ({
         </div>
       </div>
 
-      <div className="border-t border-gray-400 my-8"></div>
+      <div className="border-t border-gray-400 mt-8 mb-6"></div>
 
       <div className="flex flex-col">
         <div className="flex flex-col">

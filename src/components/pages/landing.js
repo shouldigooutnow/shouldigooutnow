@@ -3,8 +3,10 @@ import _ from 'lodash'
 import { ActivityList } from '@/components/activites/list'
 import { NewActivity } from '@/components/activites/new'
 import { Assumptions } from '@/components/assumptions'
+import { Eye, EyeOff } from '@/components/icons'
 import { Probability } from '@/components/core/probability'
 import { Shell } from '@/components/core/shell'
+import { Button } from '@/components/core/button'
 
 import * as Model from '@/model'
 import * as ModelPresets from '@/model/presets'
@@ -30,21 +32,26 @@ export const Landing = () => {
           methodology and assumptions
         </a>
       </p>
-      <p className="text-lg mb-4 mt-8 text-teal-600 cursor-pointer" onClick={() => setShowModelParams(!showModelParams)}>
-        Model Assumptions and Presets
-        <p className="text-teal-600 inline-block ml-2">{showModelParams ? '-' : '+'}</p>
-      </p>
+      <div className="flex flex-row flex-wrap items-center mb-4 mt-8">
+        <p className="text-lg mr-2">Model Assumptions and Presets</p>
+        <Button className="inline-flex items-center" onClick={() => setShowModelParams(!showModelParams)}>
+          {showModelParams ? <EyeOff /> : <Eye />}
+          <span className="text-sm ml-2">{showModelParams ? 'Collapse' : 'Expand'}</span>
+        </Button>
+      </div>
       {showModelParams ? (
-        <Assumptions
-          covidPresets={modelCovidPresets}
-          selectedCovidProbs={selectedCovidProbs}
-          transmissionPresets={modelTransmissionPresets}
-          selectedTransmissionProbs={selectedTransmissionProbs}
-          onSelectedCovidProbsUpdate={onSelectedCovidProbsUpdate}
-          onSelectedTransmissionProbsUpdate={onSelectedTransmissionProbsUpdate}
-        />
+        <>
+          <Assumptions
+            covidPresets={modelCovidPresets}
+            selectedCovidProbs={selectedCovidProbs}
+            transmissionPresets={modelTransmissionPresets}
+            selectedTransmissionProbs={selectedTransmissionProbs}
+            onSelectedCovidProbsUpdate={onSelectedCovidProbsUpdate}
+            onSelectedTransmissionProbsUpdate={onSelectedTransmissionProbsUpdate}
+          />
+          <div className="border-t border-gray-400 py-2" />
+        </>
       ) : null}
-      <div className="border-t border-gray-400 py-2" />
       <NewActivity
         onCreate={activity => setActivities([...activities, activity])}
         transmissionProbabilties={selectedTransmissionProbs.probabilities}
