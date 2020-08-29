@@ -11,7 +11,9 @@ const calcProbSomeonePresentHasCovid = (numberOfPeoplePresent, covidProbability)
 
 const infectionProbability = (numberOfPeople, covidProbability, hourlyTransmissionProbability, eventDurationMins) => {
   const probSomeonePresentHasCovid = calcProbSomeonePresentHasCovid(numberOfPeople, covidProbability)
-  const probDoNotContract = binomialProbability(1 * eventDurationMins, 0, hourlyTransmissionProbability / 60)
+  // Exponential decay method: https://math.stackexchange.com/questions/153607/what-is-the-chance-to-get-a-parking-ticket-in-half-an-hour-if-the-chance-to-get/153612#153612
+  const minutelyTranmissionProbability = 1 - Math.pow(1 - hourlyTransmissionProbability, 1 / 60)
+  const probDoNotContract = binomialProbability(1 * eventDurationMins, 0, minutelyTranmissionProbability)
   const probDoContract = 1 - probDoNotContract
   return probSomeonePresentHasCovid * probDoContract
 }
