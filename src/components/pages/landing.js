@@ -31,15 +31,15 @@ export const Landing = () => {
             }}
           />
           <div className="border-t border-gray-400 mt-8"></div>
-          <p className="text-3xl my-4 mb-4">Total Risk:</p>
-          <p className="text-3xl my-8 mb-4">
-            <Probability className="text-3xl" probability={highLevelProbs.probSomeonePresentHasCovid} />
-            chance someone present has Covid
-          </p>
-          <p className="text-3xl mb-4">
-            <Probability className="text-3xl bg-teal-500" probability={highLevelProbs.probContractingCovid} />
-            chance contracting Covid
-          </p>
+          <p className="md:text-1xl text-xl my-4 mb-4">Total Risk:</p>
+          <div className="flex flex-wrap items-center mt-8 mb-4 md:mt-0">
+            <Probability className="md:text-1xl text-xl" probability={highLevelProbs.probSomeonePresentHasCovid} />
+            <p className="md:text-1xl text-xl">chance someone present has Covid</p>
+          </div>
+          <div className="flex flex-wrap items-center mt-8 mb-4 md:mt-0">
+            <Probability className="md:text-1xl text-xl bg-teal-500" probability={highLevelProbs.probContractingCovid} />
+            <p className="md:text-1xl text-xl">chance contracting Covid</p>
+          </div>
         </div>
       )}
     </Shell>

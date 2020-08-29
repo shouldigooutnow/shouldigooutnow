@@ -1,4 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
 
-export const Card = props => <div {...props} className={classNames('max-w-md rounded overflow-hidden p-6 shadow-lg', props.className)} />
+export const Card = props => (
+  <div {...props} className={classNames('max-w-md rounded p-4 md:p-6 border border-gray-400', props.className)} />
+)
