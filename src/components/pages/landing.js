@@ -2,14 +2,23 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import { ActivityList } from '@/components/activites/list'
 import { NewActivity } from '@/components/activites/new'
+import { Assumptions } from '@/components/assumptions'
 import { Probability } from '@/components/core/probability'
 import { Shell } from '@/components/core/shell'
 
-import * as Model from '../../model'
+import * as Model from '@/model'
+import * as ModelPresets from '@/model/presets'
 
 export const Landing = () => {
   const [activities, setActivities] = useState([])
-  const activitesWithProbs = Model.calculateCovidProbs(activities)
+  const [showModelParams, setShowModelParams] = useState(false)
+
+  const [modelCovidPresets] = useState(ModelPresets.probSomeonePresentHasCovidPresets)
+  const [selectedCovidProbs, onSelectedCovidProbsUpdate] = useState(modelCovidPresets[0])
+  const [modelTransmissionPresets] = useState(ModelPresets.probTransmissionPresets)
+  const [selectedTransmissionProbs, onSelectedTransmissionProbsUpdate] = useState(modelTransmissionPresets[0])
+
+  const activitesWithProbs = Model.calculateCovidProbs(activities, selectedCovidProbs.probability, selectedTransmissionProbs.probabilities)
   const highLevelProbs = Model.calculateHighLevelProbs(activitesWithProbs)
   return (
     <Shell>
@@ -21,7 +30,25 @@ export const Landing = () => {
           methodology and assumptions
         </a>
       </p>
-      <NewActivity onCreate={activity => setActivities([...activities, activity])} />
+      <p className="text-lg mb-4 mt-4" onClick={() => setShowModelParams(!showModelParams)}>
+        {showModelParams ? '' : 'Show  '}Model Assumptions and Presets
+        <p className="text-teal-600 inline-block ml-2">{showModelParams ? '-' : '+'}</p>
+      </p>
+      {showModelParams ? (
+        <Assumptions
+          covidPresets={modelCovidPresets}
+          selectedCovidProbs={selectedCovidProbs}
+          transmissionPresets={modelTransmissionPresets}
+          selectedTransmissionProbs={selectedTransmissionProbs}
+          onSelectedCovidProbsUpdate={onSelectedCovidProbsUpdate}
+          onSelectedTransmissionProbsUpdate={onSelectedTransmissionProbsUpdate}
+        />
+      ) : null}
+      <div className="border-t border-gray-400 py-2" />
+      <NewActivity
+        onCreate={activity => setActivities([...activities, activity])}
+        transmissionProbabilties={selectedTransmissionProbs.probabilities}
+      />
       {!_.isEmpty(activitesWithProbs) && (
         <div className="border-t border-gray-400 py-8">
           <ActivityList

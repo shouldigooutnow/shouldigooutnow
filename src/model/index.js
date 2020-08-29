@@ -1,5 +1,3 @@
-import { PROB_COVID } from './assumptions'
-import { activities } from './activities'
 import { binomialProbability } from '@/common/math'
 
 const calcExpectedNumberOfPeopleWithCovid = (numberOfPeople, covidProbability) => {
@@ -22,26 +20,26 @@ const infectionProbability = (numberOfPeople, covidProbability, hourlyTransmissi
   return probSomeonePresentHasCovid * probDoContract
 }
 
-const calculateCovidProb = activity => {
-  const probSomeonePresentHasCovid = calcProbSomeonePresentHasCovid(activity.numberOfPeoplePresent, PROB_COVID)
+const calculateCovidProb = (activity, covidProbability, transmissionProbabilities) => {
+  const probSomeonePresentHasCovid = calcProbSomeonePresentHasCovid(activity.numberOfPeoplePresent, covidProbability)
   const probContractingCovid = infectionProbability(
     activity.numberOfPeoplePresent,
-    PROB_COVID,
-    activities.find(a => a.key === activity.activity).probability,
+    covidProbability,
+    transmissionProbabilities[activity.activity],
     activity.durationMins
   )
   return {
     ...activity,
     probSomeonePresentHasCovid,
     probNobodyPresentHasCovid: 1 - probSomeonePresentHasCovid,
-    expectedNumberPeopleWithCovid: calcExpectedNumberOfPeopleWithCovid(activity.numberOfPeoplePresent, PROB_COVID),
+    expectedNumberPeopleWithCovid: calcExpectedNumberOfPeopleWithCovid(activity.numberOfPeoplePresent, covidProbability),
     probContractingCovid,
     probNotContractingCovid: 1 - probContractingCovid
   }
 }
 
-export const calculateCovidProbs = activities => {
-  return activities.map(a => calculateCovidProb(a))
+export const calculateCovidProbs = (activities, covidProbability, transmissionProbabilities) => {
+  return activities.map(a => calculateCovidProb(a, covidProbability, transmissionProbabilities))
 }
 
 export const calculateHighLevelProbs = activitiesWithProbs => {
