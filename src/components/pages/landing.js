@@ -30,8 +30,8 @@ export const Landing = () => {
           methodology and assumptions
         </a>
       </p>
-      <p className="text-lg mb-4 mt-4" onClick={() => setShowModelParams(!showModelParams)}>
-        {showModelParams ? '' : 'Show  '}Model Assumptions and Presets
+      <p className="text-lg mb-4 mt-8 text-teal-600 cursor-pointer" onClick={() => setShowModelParams(!showModelParams)}>
+        Model Assumptions and Presets
         <p className="text-teal-600 inline-block ml-2">{showModelParams ? '-' : '+'}</p>
       </p>
       {showModelParams ? (

@@ -33,12 +33,12 @@ export const IntegerNumberInput = props => (
 )
 
 export const PercentageNumberInput = props => (
-  <div className={`border-b border-teal-500 py-2 min-w-10 ${defaultClassNames} flex`}>
-    <input
-      className="inline-block flex-grow appearance-none bg-transparent border-none text-gray-700 mr-3 py-1 px-2 focus:outline-none text-center"
+  <div className="">
+    <Input
+      className="w-32"
       {...props}
       type="number"
-      step="0.01"
+      step={props.step || '1'}
       max="100"
       value={props.value * 100 || ''}
       onBlur={event => {
@@ -60,8 +60,6 @@ export const PercentageNumberInput = props => (
         }
       }}
     />
-    <p className="inline-block bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
-      %
-    </p>
+    <p className="inline-block text-sm py-1 px-2">%</p>
   </div>
 )
