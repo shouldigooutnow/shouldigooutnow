@@ -12,16 +12,24 @@ export const Input = props => (
   />
 )
 
-export const NumberInput = props => (
+export const IntegerNumberInput = props => (
   <Input
     {...props}
+    type="tel" // number was not firing event properly if a string was entered...
     value={props.value || ''}
+    onBlur={event => {
+      if (event.target.value === '') {
+        props.onChange(1)
+      }
+    }}
     onChange={event => {
+      console.log(event.target)
       if (event.target.value === '') {
         props.onChange(null)
         return
       }
-      const number = parseInt(event.target.value)
+      const rawValue = event.target.value.replace('.', '')
+      const number = parseInt(rawValue)
       if (_.isNaN(number)) {
         props.onChange(null)
       } else {
