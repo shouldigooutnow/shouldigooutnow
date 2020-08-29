@@ -10,12 +10,13 @@ import { activities } from '@/model/activities'
 const defaultActivity = {
   activity: 'indoors',
   duration: 2,
-  numberOfPeoplePresent: 5
+  numberOfPeoplePresent: 5,
+  units: 'hours'
 }
 
 export const NewActivity = props => {
   const [activity, setActivity] = useState(defaultActivity.activity)
-  const [durationUnits, setDurationUnits] = useState('hours')
+  const [durationUnits, setDurationUnits] = useState(defaultActivity.units)
   const [duration, setDuration] = useState(defaultActivity.duration)
   const [numberOfPeoplePresent, setNumberOfPeoplePresent] = useState(defaultActivity.numberOfPeoplePresent)
 
@@ -28,7 +29,7 @@ export const NewActivity = props => {
           props.onCreate({ activity, activityName: _.find(activities, { key: activity }).name, durationMins, numberOfPeoplePresent })
           setActivity(defaultActivity.activity)
           setDuration(defaultActivity.duration)
-          setDurationUnits('minutes')
+          setDurationUnits(defaultActivity.units)
           setNumberOfPeoplePresent(defaultActivity.numberOfPeoplePresent)
         }}
       >

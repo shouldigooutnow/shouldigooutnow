@@ -23,7 +23,6 @@ export const IntegerNumberInput = props => (
       }
     }}
     onChange={event => {
-      console.log(event.target)
       if (event.target.value === '') {
         props.onChange(null)
         return
