@@ -37,7 +37,7 @@ export const Assumptions = ({
         </div>
         <div className="flex flex-col">
           <div className="flex flex-row items-center mb-3">
-            <p className="text-xs mr-2">{selectedCovidProbs.description}</p>
+            <p className="text-xs mr-2 ">{selectedCovidProbs.description}</p>
             <a href={selectedCovidProbs.source} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="text-teal-600" />
             </a>
