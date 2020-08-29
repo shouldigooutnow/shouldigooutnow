@@ -4,7 +4,7 @@ import { Github, Heart } from '@/components/icons'
 export const Shell = props => (
   <div className="min-h-full flex flex-col">
     <div className="container mx-auto py-6 flex-1">{props.children}</div>
-    <div className="w-full bg-teal-200">
+    <div className="w-full bg-teal-400">
       <div className="container flex flex-wrap items-center justify-between mx-auto py-4 flex-1">
         <p className="mr-2">
           Made with <Heart className="inline mb-1 text-red-500" /> by Richard and Irfan{' '}
