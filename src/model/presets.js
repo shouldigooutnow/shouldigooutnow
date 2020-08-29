@@ -8,6 +8,7 @@ export const probSomeonePresentHasCovidPresets = [
   },
   {
     shortName: '2020-08-14 England (ONS) Optimistic',
+    description: '2020-08-14 England (Office National Statistics) "Lower" Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0004
