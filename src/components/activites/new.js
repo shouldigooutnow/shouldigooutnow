@@ -34,7 +34,7 @@ export const NewActivity = props => {
       >
         <p className="text-lg mb-4">Add activites</p>
         <div className="flex flex-wrap -mx-3">
-          <div className="md:w-1/2 px-3">
+          <div className="px-3">
             <Label htmlFor="activity">Activity</Label>
             <Select value={activity} id="activity" onChange={event => setActivity(event.target.value)}>
               {activities.map(activityOption => {
@@ -46,10 +46,11 @@ export const NewActivity = props => {
               })}
             </Select>
           </div>
-          <div className="md:w-1/2 px-3">
+          <div className="px-3">
             <Label htmlFor="number-of-people-present">Number of people</Label>
             <NumberInput
               id="number-of-people-present"
+              className="w-20"
               type="number"
               onChange={newNumberOfPeoplePresent => setNumberOfPeoplePresent(newNumberOfPeoplePresent)}
               value={numberOfPeoplePresent}
@@ -57,11 +58,17 @@ export const NewActivity = props => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-1">
-          <div className="md:w-1/6 px-3">
+          <div className="px-3">
             <Label htmlFor="duration-mins">Duration</Label>
-            <NumberInput id="duration-mins" type="number" onChange={newDuration => setDuration(newDuration)} value={duration} />
+            <NumberInput
+              id="duration-mins"
+              className="w-20"
+              type="number"
+              onChange={newDuration => setDuration(newDuration)}
+              value={duration}
+            />
           </div>
-          <div className="md:w-1/5 px-">
+          <div className="">
             <Label htmlFor="duration-mins">&nbsp;</Label>
             <Select value={durationUnits} id="duration-units" onChange={event => setDurationUnits(event.target.value)}>
               <option value={'minutes'}>Minutes</option>
