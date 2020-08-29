@@ -1,5 +1,6 @@
 export const activities = [
-  { key: 'indoors', name: 'Indoors', probability: 0.4 },
-  { key: 'indoorsOthersFaceCovered', name: 'Indoors (others face covered)', probability: 0.3 },
-  { key: 'outdoors', name: 'Outdoors', probability: 0.15 }
+  { key: 'indoors', name: 'Indoors' },
+  { key: 'indoorsOthersFaceCovered', name: 'Indoors (others face covered)' },
+  { key: 'outdoors', name: 'Outdoors' },
+  { key: 'outdoors2MeterDistancing', name: 'Outdoors (2 meters distancing)' }
 ]
