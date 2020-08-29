@@ -16,6 +16,11 @@ export const NumberInput = props => (
   <Input
     {...props}
     value={props.value || ''}
+    onBlur={event => {
+      if (event.target.value === '') {
+        props.onChange(1)
+      }
+    }}
     onChange={event => {
       if (event.target.value === '') {
         props.onChange(null)
