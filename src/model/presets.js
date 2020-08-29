@@ -36,10 +36,10 @@ export const probTransmissionPresets = [
     description: 'Optimistic',
     source: null,
     probabilities: {
-      indoors: 0.4,
-      indoorsOthersFaceCovered: 0.3,
-      outdoors: 0.15,
-      outdoors2MeterDistancing: 0.05
+      indoors: 0.1,
+      indoorsOthersFaceCovered: 0.05,
+      outdoors: 0.02,
+      outdoors2MeterDistancing: 0.01
     }
   }
 ]

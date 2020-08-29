@@ -5,10 +5,11 @@ import { Form } from '@/components/core/form'
 import { IntegerNumberInput } from '@/components/core/input'
 import { InputButton } from '@/components/core/button'
 import { Select } from '@/components/core/select'
+
 import { activities } from '@/model/activities'
 
 const defaultActivity = {
-  activity: 'indoors',
+  activity: activities[0].key,
   duration: 2,
   numberOfPeoplePresent: 5,
   units: 'hours'
@@ -26,7 +27,12 @@ export const NewActivity = props => {
         className="w-full max-w-3xl"
         onSubmit={() => {
           const durationMins = durationUnits === 'hours' ? duration * 60 : duration
-          props.onCreate({ activity, activityName: _.find(activities, { key: activity }).name, durationMins, numberOfPeoplePresent })
+          props.onCreate({
+            activity,
+            activityName: _.find(activities, { key: activity }).name,
+            durationMins,
+            numberOfPeoplePresent
+          })
           setActivity(defaultActivity.activity)
           setDuration(defaultActivity.duration)
           setDurationUnits(defaultActivity.units)
@@ -48,7 +54,7 @@ export const NewActivity = props => {
             </Select>
           </div>
           <div className="px-3">
-            <Label htmlFor="number-of-people-present">Number of people</Label>
+            <Label htmlFor="number-of-people-present">Number of other people</Label>
             <IntegerNumberInput
               id="number-of-people-present"
               className="w-20"
