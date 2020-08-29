@@ -16,13 +16,14 @@ export const Assumptions = ({
   onSelectedTransmissionProbsUpdate
 }) => {
   return (
-    <div className="bg-white mb-8 leading-normal border-2 p-2">
-      <div htmlfor="covid-probability-model-container" className="flex flex-col">
+    <div className="mb-8 leading-normal">
+      <div className="flex flex-col">
         <div className="flex flex-col">
-          <Label htmlFor="covid-probability-model">Covid Probability Model</Label>
+          <p className="text-md mb-1 font-semibold">Probability someone has Covid-19</p>
+          <Label>Preset Source</Label>
           <Select
+            className="md:w-1/2"
             value={selectedCovidProbs.shortName}
-            id="selectedCovidProbs"
             onChange={event => onSelectedCovidProbsUpdate(covidPresets.find(c => c.shortName === event.target.value))}
           >
             {covidPresets.map(covidPreset => {
@@ -34,18 +35,18 @@ export const Assumptions = ({
             })}
           </Select>
         </div>
-        <div className="mx-3 flex flex-row flex-grow justify-center">
-          <div className="flex flex-col flex-grow">
-            <Label htmlFor="description">Description</Label>
-            <div className="flex flex-row">
-              <p className="text-xs ml-4 mr-4">{selectedCovidProbs.description}</p>
-              <ExternalLink onClick={event => (window.location.href = selectedCovidProbs.source)} />
-            </div>
+        <div className="flex flex-col">
+          <div className="flex flex-row items-center mb-3">
+            <p className="text-xs mr-2 ">{selectedCovidProbs.description}</p>
+            <a href={selectedCovidProbs.source} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="text-teal-600" />
+            </a>
           </div>
-          <div className="flex flex-col flex-grow">
-            <Label htmlFor="covid-probability">Covid Probability</Label>
+          <div className="flex flex-col">
+            <Label htmlFor="covid-probability">Probability</Label>
             <PercentageNumberInput
               id="covid-probability"
+              step="0.01"
               onChange={newCovidProbability => onSelectedCovidProbsUpdate({ ...selectedCovidProbs, probability: newCovidProbability })}
               value={selectedCovidProbs.probability}
             />
@@ -53,14 +54,16 @@ export const Assumptions = ({
         </div>
       </div>
 
-      <div className="border-t border-gray-400 my-8"></div>
+      <div className="border-t border-gray-400 mt-8 mb-6"></div>
 
-      <div htmlfor="covid-tranmission-model-container" className="flex flex-col">
+      <div className="flex flex-col">
         <div className="flex flex-col">
-          <Label htmlFor="covid-probability-model">Transmission Probability Model</Label>
+          <p className="text-md mb-1 font-semibold">Probability of transmitting Covid-19 in an hour</p>
+          <Label htmlFor="covid-probability-model">Preset</Label>
           <Select
             value={selectedTransmissionProbs.shortName}
             id="selectedTransmissionProbs"
+            className="sm:w-40"
             onChange={event => onSelectedTransmissionProbsUpdate(transmissionPresets.find(t => t.shortName === event.target.value))}
           >
             {transmissionPresets.map(transmissionPreset => {
@@ -72,12 +75,13 @@ export const Assumptions = ({
             })}
           </Select>
         </div>
-        <div className="mx-3 flex flex-row flex-grow flex-wrap justify-center">
+        <div className="flex flex-row flex-wrap">
           {activities.map(a => (
-            <div className="px-3 p-4 w-1/2 ">
+            <div className="py-4 w-full sm:w-1/2">
               <Label htmlFor="transmission-probability">{a.name}</Label>
               <PercentageNumberInput
                 id="transmission-probability"
+                className="w-20"
                 onChange={newTransmissionProb => {
                   let newProbs = { ...selectedTransmissionProbs.probabilities }
                   newProbs[a.key] = newTransmissionProb

@@ -56,6 +56,14 @@ f(6, 4, 0.5)
 
 ### Calculating the probability someone present during an activity has Covid
 
+#### Assumptions
+
+When setting `probabilitySomeoneInPopulationHasCovid` you must decided how long people are infectious for, we used 2 weeks in our presets.
+
+You could also assume that some people stay home and are therefore not in the general population. We have not accounted for this.
+
+#### Methodology
+
 To calculate probability someone present during an activity has covid we use the function as follows:
 
 ```
