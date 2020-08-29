@@ -2,21 +2,21 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import { Label } from '@/components/core/label'
 import { Form } from '@/components/core/form'
-import { NumberInput } from '@/components/core/input'
+import { IntegerNumberInput } from '@/components/core/input'
 import { InputButton } from '@/components/core/button'
 import { Select } from '@/components/core/select'
 import { activities } from '@/model/activities'
 
 const defaultActivity = {
   activity: 'indoors',
-  durationMins: 5,
+  duration: 2,
   numberOfPeoplePresent: 5
 }
 
 export const NewActivity = props => {
   const [activity, setActivity] = useState(defaultActivity.activity)
-  const [durationUnits, setDurationUnits] = useState('minutes')
-  const [duration, setDuration] = useState(defaultActivity.durationMins)
+  const [durationUnits, setDurationUnits] = useState('hours')
+  const [duration, setDuration] = useState(defaultActivity.duration)
   const [numberOfPeoplePresent, setNumberOfPeoplePresent] = useState(defaultActivity.numberOfPeoplePresent)
 
   return (
@@ -27,7 +27,7 @@ export const NewActivity = props => {
           const durationMins = durationUnits === 'hours' ? duration * 60 : duration
           props.onCreate({ activity, activityName: _.find(activities, { key: activity }).name, durationMins, numberOfPeoplePresent })
           setActivity(defaultActivity.activity)
-          setDuration(defaultActivity.durationMins)
+          setDuration(defaultActivity.duration)
           setDurationUnits('minutes')
           setNumberOfPeoplePresent(defaultActivity.numberOfPeoplePresent)
         }}
@@ -48,10 +48,9 @@ export const NewActivity = props => {
           </div>
           <div className="px-3">
             <Label htmlFor="number-of-people-present">Number of people</Label>
-            <NumberInput
+            <IntegerNumberInput
               id="number-of-people-present"
               className="w-20"
-              type="number"
               onChange={newNumberOfPeoplePresent => setNumberOfPeoplePresent(newNumberOfPeoplePresent)}
               value={numberOfPeoplePresent}
             />
@@ -60,13 +59,7 @@ export const NewActivity = props => {
         <div className="flex flex-wrap -mx-3 mb-1">
           <div className="px-3">
             <Label htmlFor="duration-mins">Duration</Label>
-            <NumberInput
-              id="duration-mins"
-              className="w-20"
-              type="number"
-              onChange={newDuration => setDuration(newDuration)}
-              value={duration}
-            />
+            <IntegerNumberInput id="duration-mins" className="w-20" onChange={newDuration => setDuration(newDuration)} value={duration} />
           </div>
           <div className="">
             <Label htmlFor="duration-mins">&nbsp;</Label>
