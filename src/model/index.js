@@ -1,27 +1,29 @@
-import { combinations } from 'mathjs'
-import { PROB_COVID, PROB_TRANSMISSION } from './assumptions'
+import { factorial } from 'mathjs'
+import { PROB_COVID } from './assumptions'
+import { activities } from './activities'
 
 // The probability that x happens exacltly k times out of n
 const binomialProbability = (trials, successes, prob_of_success) => {
   const p = Math.min(1, prob_of_success)
-  return combinations(trials, successes) * Math.pow(p, successes) * Math.pow(1 - p, trials - successes)
+  const part1 = successes === 0 ? 1 : factorial(trials) / (factorial(successes) * factorial(trials - successes))
+  const part2 = Math.pow(p, successes) * Math.pow(1 - p, trials - successes)
+  return part1 * part2
 }
 
-// The probability that x happens upto k times out of n
-const cumulativeBinomialProbability = (trials, successes, prob_of_success) => {
-  let cumulative = 0
+// // The probability that x happens upto k times out of n
+// const cumulativeBinomialProbability = (trials, successes, prob_of_success) => {
+//   let cumulative = 0
+//   for (let i = 1; i <= successes; ++i) {
+//     cumulative = cumulative + binomialProbability(trials, i, prob_of_success)
 
-  for (let i = 0; i <= successes; ++i) {
-    cumulative = cumulative + binomialProbability(trials, i, prob_of_success)
+//     if (cumulative >= 1) {
+//       cumulative = 1
+//       break
+//     }
+//   }
 
-    if (cumulative >= 1) {
-      cumulative = 1
-      break
-    }
-  }
-
-  return cumulative
-}
+//   return cumulative
+// }
 
 const calcExpectedNumberOfPeopleWithCovid = (numberOfPeople, covidProbability) => {
   return numberOfPeople * covidProbability
@@ -35,20 +37,19 @@ const calcExpectedNumberOfPeopleWithCovid = (numberOfPeople, covidProbability) =
 //    - if more people have covid, the chances you will get it increase
 const infectionProbability = (numberOfPeople, covidProbability, hourlyTransmissionProbability, eventDurationMins) => {
   const expectedNumberOfPeopleWithCovid = calcExpectedNumberOfPeopleWithCovid(numberOfPeople, covidProbability)
-  const expectedInfectionRate = cumulativeBinomialProbability(
-    numberOfPeople,
-    numberOfPeople,
-    (eventDurationMins * hourlyTransmissionProbability) / 60
-  )
-  return expectedNumberOfPeopleWithCovid * Math.min(1, expectedInfectionRate)
+  // dodgy maths here...
+  const expectedInfectionRate =
+    1 - binomialProbability(expectedNumberOfPeopleWithCovid, 0, (eventDurationMins * hourlyTransmissionProbability) / 60)
+
+  return Math.min(1, expectedInfectionRate)
 }
 
 const calculateCovidProb = activity => {
-  const probSomeonePresentHasCovid = binomialProbability(activity.numberOfPeoplePresent, 1, PROB_COVID)
+  const probSomeonePresentHasCovid = 1 - binomialProbability(activity.numberOfPeoplePresent, 0, PROB_COVID)
   const probContractingCovid = infectionProbability(
     activity.numberOfPeoplePresent,
     PROB_COVID,
-    PROB_TRANSMISSION[activity.activity],
+    activities.find(a => a.key === activity.activity).probability,
     activity.durationMins
   )
   return {
