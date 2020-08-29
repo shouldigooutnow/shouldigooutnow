@@ -20,7 +20,7 @@ export const NewActivity = props => {
   const [numberOfPeoplePresent, setNumberOfPeoplePresent] = useState(defaultActivity.numberOfPeoplePresent)
 
   return (
-    <div className="border-b border-gray-400 lg:border-gray-400 bg-white py-8 leading-normal">
+    <div className="bg-white py-8 leading-normal">
       <Form
         className="w-full max-w-3xl"
         onSubmit={() => {
@@ -32,6 +32,7 @@ export const NewActivity = props => {
           setNumberOfPeoplePresent(defaultActivity.numberOfPeoplePresent)
         }}
       >
+        <p className="text-lg mb-4">Add activites</p>
         <div className="flex flex-wrap -mx-3">
           <div className="md:w-1/2 px-3">
             <Label htmlFor="activity">Activity</Label>
