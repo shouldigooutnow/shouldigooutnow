@@ -9,7 +9,7 @@ import { activities } from '@/model/activities'
 
 const defaultActivity = {
   activity: 'indoors',
-  durationMins: 30,
+  durationMins: 5,
   numberOfPeoplePresent: 5
 }
 
