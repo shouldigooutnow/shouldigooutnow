@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
+import classNames from 'classnames'
+
 import { Label } from '@/components/core/label'
 import { Form } from '@/components/core/form'
 import { IntegerNumberInput } from '@/components/core/input'
@@ -22,7 +24,7 @@ export const NewActivity = props => {
   const [numberOfPeoplePresent, setNumberOfPeoplePresent] = useState(defaultActivity.numberOfPeoplePresent)
 
   return (
-    <div className="bg-white py-8 leading-normal">
+    <div className={classNames('bg-white leading-normal', props.className)}>
       <Form
         className="w-full max-w-3xl"
         onSubmit={() => {
@@ -54,7 +56,7 @@ export const NewActivity = props => {
             </Select>
           </div>
           <div className="px-3">
-            <Label htmlFor="number-of-people-present">Number of other people</Label>
+            <Label htmlFor="number-of-people-present">Number of other people nearby</Label>
             <IntegerNumberInput
               id="number-of-people-present"
               className="w-20"

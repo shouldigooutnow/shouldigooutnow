@@ -40,7 +40,7 @@ export const PercentageNumberInput = props => (
       type="number"
       step={props.step || '1'}
       max="100"
-      value={props.value * 100 || ''}
+      value={_.isNumber(props.value) ? props.value * 100 : ''}
       onBlur={event => {
         if (event.target.value === '') {
           props.onChange(0)
@@ -55,6 +55,8 @@ export const PercentageNumberInput = props => (
         const number = event.target.value
         if (_.isNaN(number)) {
           props.onChange(0)
+        } else if (number > 100) {
+          props.onChange(1)
         } else {
           props.onChange(number / 100)
         }
