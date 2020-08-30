@@ -1,5 +1,6 @@
 import React from 'react'
-import { Github, Heart } from '@/components/icons'
+import { Github, FaceMask } from '@/components/icons'
+import { Link } from '@/components/core/link'
 
 export const Shell = props => (
   <div className="min-h-full flex flex-col">
@@ -7,7 +8,14 @@ export const Shell = props => (
     <div className="w-full bg-teal-500">
       <div className="container flex flex-wrap items-center justify-between mx-auto py-4 flex-1">
         <p className="mr-2 text-white">
-          Made with <Heart className="inline mb-1 text-red-500" /> by Richard and Irfan{' '}
+          Made with <FaceMask className="inline mb-1" stringColor="white" maskColor="white" maskTopColor="grey" /> by{' '}
+          <Link className="text-white underline" href="https://www.linkedin.com/in/richardgill3">
+            Richard
+          </Link>{' '}
+          and{' '}
+          <Link className="text-white underline" href="https://www.linkedin.com/in/irfy">
+            Irfan
+          </Link>
         </p>
         <a href="https://github.com/shouldigooutnow/shouldigooutnow/">
           <div className="flex flex-row items-center">
