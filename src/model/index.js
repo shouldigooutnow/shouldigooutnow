@@ -1,5 +1,7 @@
 import { binomialProbability } from '@/common/math'
 
+// See src/components/methodology/content.md for a full explanation
+
 const calcProbSomeonePresentHasCovid = (numberOfPeoplePresent, covidProbability) =>
   1 - binomialProbability(numberOfPeoplePresent, 0, covidProbability)
 
