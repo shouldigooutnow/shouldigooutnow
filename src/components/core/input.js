@@ -32,39 +32,36 @@ export const IntegerNumberInput = props => (
   />
 )
 
-export const PercentageNumberInput = props => {
-  console.log(props.value)
-  return (
-    <div className="">
-      <Input
-        className="w-32"
-        {...props}
-        type="number"
-        step={props.step || '1'}
-        max="100"
-        value={_.isNumber(props.value) ? _.round(props.value * 100, 9) : ''}
-        onBlur={event => {
-          if (event.target.value === '') {
-            props.onChange(0)
-          }
-        }}
-        onChange={event => {
-          console.log(event.target)
-          if (event.target.value === '') {
-            props.onChange(null)
-            return
-          }
-          const number = event.target.value
-          if (_.isNaN(number)) {
-            props.onChange(0)
-          } else if (number > 100) {
-            props.onChange(1)
-          } else {
-            props.onChange(number / 100)
-          }
-        }}
-      />
-      <p className="inline-block text-sm py-1 px-2">%</p>
-    </div>
-  )
-}
+export const PercentageNumberInput = props => (
+  <div className="">
+    <Input
+      className="w-32"
+      {...props}
+      type="number"
+      step={props.step || '1'}
+      max="100"
+      value={_.isNumber(props.value) ? _.round(props.value * 100, 9) : ''}
+      onBlur={event => {
+        if (event.target.value === '') {
+          props.onChange(0)
+        }
+      }}
+      onChange={event => {
+        console.log(event.target)
+        if (event.target.value === '') {
+          props.onChange(null)
+          return
+        }
+        const number = event.target.value
+        if (_.isNaN(number)) {
+          props.onChange(0)
+        } else if (number > 100) {
+          props.onChange(1)
+        } else {
+          props.onChange(number / 100)
+        }
+      }}
+    />
+    <p className="inline-block text-sm py-1 px-2">%</p>
+  </div>
+)
