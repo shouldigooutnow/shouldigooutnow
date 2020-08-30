@@ -38,7 +38,7 @@ export const Landing = () => {
       <p className="text-3xl mb-4 text-teal-600 font-bold">Should I go out now?</p>
       <p className="text-lg mb-4">A model to help think about how to behave during the Covid-19 Pandemic</p>
       <p className="text-md mb-12">
-        <Warning className="inline" /> We are not Epidemiologists / Scientists. Please read about our{' '}
+        <Warning className="inline" /> We are not Epidemiologists / Scientists. Please read our{' '}
         <a className="text-teal-600" href="/methodology">
           methodology and assumptions
         </a>
