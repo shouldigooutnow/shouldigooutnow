@@ -19,7 +19,7 @@ export const Shell = props => (
         </p>
         <a href="https://github.com/shouldigooutnow/shouldigooutnow/">
           <div className="flex flex-row items-center">
-            <p className="mr-2 text-white">See the code</p>
+            <p className="mr-2 text-white underline">Contribute</p>
             <Github className="inline text-white" />
           </div>
         </a>
