@@ -5,6 +5,7 @@ import { NewActivity } from '@/components/activites/new'
 import { Summary } from '@/components/activites/summary'
 import { Assumptions } from '@/components/assumptions'
 import { Shell } from '@/components/core/shell'
+import { Link } from '@/components/core/link'
 import { Warning } from '@/components/icons'
 import * as Model from '@/model'
 import * as ModelPresets from '@/model/presets'
@@ -39,9 +40,7 @@ export const Landing = () => {
       <p className="text-lg mb-4">A model to help think about how to behave during the Covid-19 Pandemic</p>
       <p className="text-md mb-12">
         <Warning className="inline" /> We are not Epidemiologists / Scientists. Please read our{' '}
-        <a className="text-teal-600" href="/methodology">
-          methodology and assumptions
-        </a>
+        <Link href="/methodology">methodology and assumptions</Link>
       </p>
 
       <Assumptions
@@ -65,7 +64,10 @@ export const Landing = () => {
       {!_.isEmpty(activitesWithProbs) && (
         <>
           <div className="border-t border-gray-400 mt-8 mb-6" />
-
+          <p className="text-md mb-4">
+            <Warning className="inline" /> We are not Epidemiologists / Scientists. Please{' '}
+            <Link href="/methodology">read how this works</Link>
+          </p>
           <div className="">
             <ActivityList
               activities={activitesWithProbs}
