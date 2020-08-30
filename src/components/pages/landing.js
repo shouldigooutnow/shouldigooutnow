@@ -16,12 +16,15 @@ export const Landing = () => {
   const [showModelParams, setShowModelParams] = useState(false)
 
   const [modelCovidPresets] = useState(ModelPresets.probSomeonePresentHasCovidPresets)
-  const [selectedCovidProbs, onSelectedCovidProbsUpdate] = useState(modelCovidPresets[0])
+  const [selectedCovidProbs, onSelectedCovidProbsUpdate] = useState(null)
   const [modelTransmissionPresets] = useState(ModelPresets.probTransmissionPresets)
-  const [selectedTransmissionProbs, onSelectedTransmissionProbsUpdate] = useState(modelTransmissionPresets[0])
+  const [selectedTransmissionProbs, onSelectedTransmissionProbsUpdate] = useState(null)
 
-  const activitesWithProbs = Model.calculateCovidProbs(activities, selectedCovidProbs.probability, selectedTransmissionProbs.probabilities)
-  const highLevelProbs = Model.calculateHighLevelProbs(activitesWithProbs)
+  const activitesWithProbs =
+    selectedTransmissionProbs && selectedCovidProbs
+      ? Model.calculateCovidProbs(activities, selectedCovidProbs.probability, selectedTransmissionProbs.probabilities)
+      : null
+  const highLevelProbs = activitesWithProbs ? Model.calculateHighLevelProbs(activitesWithProbs) : null
   return (
     <Shell>
       <p className="text-3xl mb-4 text-teal-600 font-bold">Should I go out now?</p>
@@ -52,10 +55,7 @@ export const Landing = () => {
           <div className="border-t border-gray-400 py-2" />
         </>
       ) : null}
-      <NewActivity
-        onCreate={activity => setActivities([...activities, activity])}
-        transmissionProbabilties={selectedTransmissionProbs.probabilities}
-      />
+      <NewActivity onCreate={activity => setActivities([...activities, activity])} />
       {!_.isEmpty(activitesWithProbs) && (
         <div className="border-t border-gray-400 py-8">
           <ActivityList
