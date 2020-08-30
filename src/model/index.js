@@ -1,8 +1,6 @@
 import { binomialProbability } from '@/common/math'
 
-const calcExpectedNumberOfPeopleWithCovid = (numberOfPeople, covidProbability) => {
-  return numberOfPeople * covidProbability
-}
+// See src/components/methodology/content.md for a full explanation
 
 const calcProbSomeonePresentHasCovid = (numberOfPeoplePresent, covidProbability) =>
   1 - binomialProbability(numberOfPeoplePresent, 0, covidProbability)
@@ -32,7 +30,6 @@ const calculateCovidProb = (activity, covidProbability, transmissionProbabilitie
     ...activity,
     probSomeonePresentHasCovid,
     probNobodyPresentHasCovid: 1 - probSomeonePresentHasCovid,
-    expectedNumberPeopleWithCovid: calcExpectedNumberOfPeopleWithCovid(activity.numberOfPeoplePresent, covidProbability),
     probContractingCovid,
     probNotContractingCovid: 1 - probContractingCovid
   }
