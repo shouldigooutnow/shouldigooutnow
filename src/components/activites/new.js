@@ -35,10 +35,6 @@ export const NewActivity = props => {
             durationMins,
             numberOfPeoplePresent
           })
-          setActivity(defaultActivity.activity)
-          setDuration(defaultActivity.duration)
-          setDurationUnits(defaultActivity.units)
-          setNumberOfPeoplePresent(defaultActivity.numberOfPeoplePresent)
         }}
       >
         <p className="text-lg mb-4">Add activites</p>
