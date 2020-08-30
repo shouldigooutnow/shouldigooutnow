@@ -1,4 +1,4 @@
-export const probSomeonePresentHasCovidPresets = [
+export const probSomeoneHasCovidPresets = [
   {
     shortName: '2020-08-14 England (ONS) Careful',
     description: '2020-08-14 England (Office National Statistics) "Upper" Value',

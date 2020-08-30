@@ -11,14 +11,14 @@ const Activity = props => (
       <div>
         <p className="text-lg font-semibold">{props.activityName}</p>
         <p className="text-md font-semibold">
-          {formatMins(props.durationMins)} with {props.numberOfPeoplePresent} people
+          {formatMins(props.durationMins)} with {props.numberOfPeople} people
         </p>
       </div>
       <Trash className="cursor-pointer text-gray-600" onClick={() => props.onDelete()} />
     </div>
     <div className="flex flex-wrap items-center mt-8 md:mt-4 mb-2">
-      <Probability probability={props.probSomeonePresentHasCovid} />
-      <p className="text-md ">chance someone present has Covid</p>
+      <Probability probability={props.probSomeoneHasCovid} />
+      <p className="text-md ">chance someone nearby has Covid</p>
     </div>
     <div className="flex flex-wrap items-center mt-8 md:mt-0">
       <Probability className="bg-teal-500" probability={props.probContractingCovid} />
