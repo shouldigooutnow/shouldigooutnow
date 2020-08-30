@@ -24,7 +24,7 @@ const areTranmissionProbsValid = transmissionProbs => {
 export const Landing = () => {
   const [activities, setActivities] = useState([])
 
-  const [modelCovidPresets] = useState(ModelPresets.probSomeonePresentHasCovidPresets)
+  const [modelCovidPresets] = useState(ModelPresets.probSomeoneHasCovidPresets)
   const [selectedCovidProb, onSelectedCovidProbUpdate] = useState(null)
   const [modelTransmissionPresets] = useState(ModelPresets.probTransmissionPresets)
   const [selectedTransmissionProbs, onSelectedTransmissionProbsUpdate] = useState(null)

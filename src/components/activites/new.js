@@ -13,7 +13,7 @@ import { activities } from '@/model/activities'
 const defaultActivity = {
   activity: activities[0].key,
   duration: 2,
-  numberOfPeoplePresent: 5,
+  numberOfPeople: 5,
   units: 'hours'
 }
 
@@ -21,7 +21,7 @@ export const NewActivity = props => {
   const [activity, setActivity] = useState(defaultActivity.activity)
   const [durationUnits, setDurationUnits] = useState(defaultActivity.units)
   const [duration, setDuration] = useState(defaultActivity.duration)
-  const [numberOfPeoplePresent, setNumberOfPeoplePresent] = useState(defaultActivity.numberOfPeoplePresent)
+  const [numberOfPeople, setNumberOfPeople] = useState(defaultActivity.numberOfPeople)
 
   return (
     <div className={classNames('bg-white leading-normal', props.className)}>
@@ -33,7 +33,7 @@ export const NewActivity = props => {
             activity,
             activityName: _.find(activities, { key: activity }).name,
             durationMins,
-            numberOfPeoplePresent
+            numberOfPeople
           })
         }}
       >
@@ -52,12 +52,12 @@ export const NewActivity = props => {
             </Select>
           </div>
           <div className="px-3">
-            <Label htmlFor="number-of-people-present">Number of other people nearby</Label>
+            <Label htmlFor="number-of-people">Number of other people nearby</Label>
             <IntegerNumberInput
-              id="number-of-people-present"
+              id="number-of-people"
               className="w-20"
-              onChange={newNumberOfPeoplePresent => setNumberOfPeoplePresent(newNumberOfPeoplePresent)}
-              value={numberOfPeoplePresent}
+              onChange={newNumberOfPeople => setNumberOfPeople(newNumberOfPeople)}
+              value={numberOfPeople}
             />
           </div>
         </div>
