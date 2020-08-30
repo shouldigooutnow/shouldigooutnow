@@ -17,6 +17,17 @@ export const probSomeonePresentHasCovidPresets = [
 
 export const probTransmissionPresets = [
   {
+    shortName: 'Very Careful',
+    description: 'Very Careful',
+    source: null,
+    probabilities: {
+      indoors: 0.8,
+      indoorsOthersFaceCovered: 0.45,
+      outdoors: 0.2,
+      outdoors2MeterDistancing: 0.1
+    }
+  },
+  {
     shortName: 'Careful',
     description: 'Careful',
     source: null,
