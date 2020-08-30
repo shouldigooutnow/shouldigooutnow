@@ -40,7 +40,7 @@ export const PercentageNumberInput = props => (
       type="number"
       step={props.step || '1'}
       max="100"
-      value={_.isNumber(props.value) ? props.value * 100 : ''}
+      value={_.isNumber(props.value) ? _.round(props.value * 100, 9) : ''}
       onBlur={event => {
         if (event.target.value === '') {
           props.onChange(0)
@@ -49,7 +49,7 @@ export const PercentageNumberInput = props => (
       onChange={event => {
         console.log(event.target)
         if (event.target.value === '') {
-          props.onChange(0)
+          props.onChange(null)
           return
         }
         const number = event.target.value
