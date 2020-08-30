@@ -14,3 +14,7 @@ Install Yarn
 yarn install
 yarn start
 ```
+
+### Methodology
+
+[Read about the methodology](./src/components/pages/methodology/content.md)
