@@ -6,7 +6,7 @@ import { Probability } from '@/components/core/probability'
 import { Trash } from '@/components/icons'
 
 const Activity = props => (
-  <Card className="m-2">
+  <Card className="m-2 flex">
     <div className="flex flex-row justify-between items-center mb-8">
       <div>
         <p className="text-lg font-semibold">{props.activityName}</p>
