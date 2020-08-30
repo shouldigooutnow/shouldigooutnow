@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { Label } from '@/components/core/label'
 import { PercentageNumberInput } from '@/components/core/input'
 import { Select } from '@/components/core/select'
+import { Exclaimation } from '@/components/icons'
 
 import { activities } from '../../model/activities'
 import { ExternalLink } from '../icons'
@@ -76,6 +77,9 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
     <div className="flex flex-col">
       <div className="flex flex-col">
         <p className="text-lg mb-1">Estimated probability of transmitting Covid-19 in an hour</p>
+        <p className="text-sm">
+          <Exclaimation className="inline text-yellow-600 my-4" /> These presets are not from scientific data
+        </p>
         <Select
           value={(selectedTransmissionProbs && selectedTransmissionProbs.shortName) || ''}
           id="selectedTransmissionProbs"
