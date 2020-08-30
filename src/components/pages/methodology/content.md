@@ -18,17 +18,19 @@ Even now, there is a lot we don't know about Covid-19 transmission. Putting abso
 
 - Aerosol spread (especially in poorly ventilated indoor areas / transport, possibly can travel more than 2 meters)
 
+Not everyone recognizes Aerosol spread, it's still unknown if this is happening. \[1\]
+
 This model does not account for the following transmission methods:
 
 - Surface spread (Fomite), via hands which later touch face
 
-Although surface spread seems possible, it seems less probable (this is echoed by the CDC \[1\])
+Although surface spread seems possible, it seems less probable (this was echoed by the CDC \[2\])
 
 ## Exposure
 
 If you ignore surface spread, you cannot catch Covid without another human who is infected with Covid-19 being present.
 
-Tests, although not perfect, let us sample populations at random to find what % of people currently have Covid-19. It's important to use test data that is a random sample a population, and not just people who submit themselves to be tested because they feel sick.
+Tests, although not perfect, let us sample populations at random to find what % of people currently have Covid-19. It's important to use test data that is a random sample of a population, and not just people who submit themselves to be tested because they feel sick.
 
 The % of people in a population with Covid-19 varies significantly by country and region within country.
 
@@ -44,30 +46,28 @@ probabilitySomeoneInPopulationHasCovid
 probabilityOfTransmissionPerHourDoingActivity
 ```
 
-Our model uses Binomial mass function \[3\].
+Our model uses Binomial probability mass function \[4\].
 
 ```
-f(attempts, successes, probability)
+bpmf(attempts, successes, probability)
 
 e.g The probability of flipping a coin 6 times and getting 4 heads:
 
-f(6, 4, 0.5)
+bpmf(6, 4, 0.5)
 ```
 
 ### Calculating the probability someone present during an activity has Covid
 
 #### Assumptions
 
-When setting `probabilitySomeoneInPopulationHasCovid` you must decided how long people are infectious for, we used 2 weeks in our presets.
-
-You could also assume that some people stay home and are therefore not in the general population. We have not accounted for this.
+The model does **not** assume that some people stay home to self-isolate and are therefore not in the general population.
 
 #### Methodology
 
-To calculate probability someone present during an activity has covid we use the function as follows:
+To calculate probability someone present during an activity has covid we use the Binomial probability mass function as follows:
 
 ```
-probabilityNobodyPresentHasCovid = f(numberOfPeoplePresent, 0, probabilitySomeoneInPopulationHasCovid)
+probabilityNobodyPresentHasCovid = bpmf(numberOfPeoplePresent, 0, probabilitySomeoneInPopulationHasCovid)
 probabilitySomebodyPresentHasCovid = 1 - probabilityNobodyPresentHasCovid
 ```
 
@@ -77,7 +77,9 @@ This relies on the `probabilitySomeoneInPopulationHasCovid` being accurate, we a
 
 #### Assumptions
 
-We make the assumption that you'll only be exposed to a single person at a time. Since the probability of being exposed is currently quite low and even in a large crowd of say 2000, you're unlikely to be exposed to all the people in that crowd.
+We make the assumption that you'll only be exposed to a single person at a time. Since the probability of being exposed to multiple people is currently quite low and even in a large crowd of say 2000, you're unlikely to be exposed to all the people in that crowd.
+
+We suggest entering the number of people you'd be exposed to: people nearby, or in the same room.
 
 #### Method
 
@@ -106,11 +108,11 @@ prob no transmission in 1/60 of an hour: 0.9^(1/60)
 Next we use the binomial probability function again to calculate the probability that we contract covid from a single person in a given number of minutes.
 
 ```
-probDoNotContract = f(eventDurationMins, 0, minutelyTranmissionProbability)
+probDoNotContract = bpmf(eventDurationMins, 0, minutelyTranmissionProbability)
 probContract = 1 - probDoNotContract
 ```
 
-When do `probabilitySomebodyPresentHasCovid * probContract` to find the probability someone preset has covid and infects us.
+We then do `probabilitySomebodyPresentHasCovid * probContract` to find the probability someone present has covid and transmits it.
 
 ## Calculating total risk
 
@@ -126,8 +128,10 @@ We use the same methodology to calculate the total probability of getting infect
 
 If you'd like to contact us you can reach us on hello@shouldigooutnow.com
 
-[\[1\] https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/how-covid-spreads.html](https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/how-covid-spreads.html)
+[\[1\] https://www.bmj.com/content/370/bmj.m3206](https://www.bmj.com/content/370/bmj.m3206)
 
-[\[2\] https://www.npr.org/sections/goatsandsoda/2020/07/06/887919633/](https://www.npr.org/sections/goatsandsoda/2020/07/06/887919633/)
+[\[2\] https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/how-covid-spreads.html](https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/how-covid-spreads.html)
 
-[\[3\] https://en.wikipedia.org/wiki/Binomial_distribution#Example](https://en.wikipedia.org/wiki/Binomial_distribution#Example)
+[\[3\] https://www.npr.org/sections/goatsandsoda/2020/07/06/887919633/](https://www.npr.org/sections/goatsandsoda/2020/07/06/887919633/)
+
+[\[4\] https://en.wikipedia.org/wiki/Binomial_distribution#Example](https://en.wikipedia.org/wiki/Binomial_distribution#Example)
