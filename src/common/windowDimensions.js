@@ -4,7 +4,8 @@ const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window
   return {
     width,
-    height
+    height,
+    isMobile: width < 480
   }
 }
 

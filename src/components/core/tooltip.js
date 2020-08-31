@@ -6,18 +6,18 @@ import { QuestionMark } from '@/components/icons'
 import { useWindowDimensions } from '@/common/windowDimensions'
 
 export const ToolTip = ({ id, message, className }) => {
-  const { width } = useWindowDimensions()
+  const { isMobile } = useWindowDimensions()
   return (
     <>
       <QuestionMark className={classNames('inline ml-2', className)} data-tip data-for={`tooltip-${id}`} />
       <ReactTooltip
         id={`tooltip-${id}`}
-        place={width < 480 ? 'top' : 'right'}
+        place={isMobile ? 'top' : 'right'}
         effect="solid"
         className="text-white text-sm mx-4 sm:max-w-sm lg:max-w-lg"
         backgroundColor="#38b2ac"
         overridePosition={({ left, top }) => ({
-          left: width < 480 ? 20 : left,
+          left: isMobile ? 20 : left,
           top: top
         })}
         clickable
