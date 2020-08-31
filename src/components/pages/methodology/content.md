@@ -38,13 +38,15 @@ The % of people in a population with Covid-19 varies significantly by country an
 
 This project is [open source on github](https://github.com/shouldigooutnow/shouldigooutnow/blob/master/src/model/index.js).
 
-Model inputs:
+### Model inputs
 
 ```
 probabilitySomeoneInPopulationHasCovid
 
 probabilityOfTransmissionPerHourDoingActivity
 ```
+
+### Binomial probability mass function
 
 Our model uses Binomial probability mass function \[4\].
 
@@ -56,11 +58,17 @@ e.g The probability of flipping a coin 6 times and getting 4 heads:
 bpmf(6, 4, 0.5)
 ```
 
+### Exponential decay
+
+We use exponential decay \[5\] to calculate the probability you contract covid. [Example](https://math.stackexchange.com/a/153612)
+
 ### Calculating the probability someone present during an activity has Covid
 
 #### Assumptions
 
 The model does **not** assume that some people stay home to self-isolate and are therefore not in the general population.
+
+Each activity assumes those people are a random sample from the population, some activities, e.g. going to an Office, might repeatively expose you to the same people. If you're exposed to the same people repeatively you can work around this by creating a longer duration activity representing total time spent together. If it's over a two week period, you should split into multiple activities, since those people might have contracted Covid in that time.
 
 #### Methodology
 
@@ -79,17 +87,15 @@ This relies on the `probabilitySomeoneInPopulationHasCovid` being accurate, we a
 
 We make the assumption that you'll only be exposed to a single person at a time. Since the probability of being exposed to multiple people is currently quite low and even in a large crowd of say 2000, you're unlikely to be exposed to all the people in that crowd.
 
-We suggest entering the number of people you'd be exposed to: people nearby, or in the same room.
+We suggest entering the number of people you'd be exposed to: people nearby, or in the same room (for aerosol spread).
 
 #### Method
 
-We first convert `probabilityOfTransmissionPerHourDoingActivity` to minutes using: `1 - Math.pow(1 - hourlyTransmissionProbability, 1 / 60)`
+We use exponential decay \[5\] to calculate the probability you contract covid.
 
-Example:
+[Example](https://math.stackexchange.com/a/153612):
 
 ```
-https://math.stackexchange.com/a/153612
-
 prob transmission in 1 hour: 0.1
 
 prob no transmission in 1 hour: 1 - 0.1 = 0.9
@@ -102,17 +108,16 @@ prob no transmission in 4 hours: 0.9 ^ 4
 
 prob no transmission in 1/2 an hour: 0.9 ^ (1/2)
 
-prob no transmission in 1/60 of an hour: 0.9^(1/60)
+prob no transmission in 1/60 of an hour: 0.9 ^ (1/60)
+
+prob no transmission in T minutes: 0.9 ^ (T/60)
+
+prob transmission in T minutes: 1 - (0.9 ^ (T/60))
+
+prob transmission in T minutes: 1 - ((1 - 0.1) ^ (T/60))
 ```
 
-Next we use the binomial probability function again to calculate the probability that we contract covid from a single person in a given number of minutes.
-
-```
-probDoNotContract = bpmf(eventDurationMins, 0, minutelyTranmissionProbability)
-probContract = 1 - probDoNotContract
-```
-
-We then do `probabilitySomebodyPresentHasCovid * probContract` to find the probability someone present has covid and transmits it.
+We then do `probabilitySomebodyPresentHasCovid * probTransmission` to find the probability someone present has covid and transmits it.
 
 ## Calculating total risk
 
@@ -135,3 +140,5 @@ If you'd like to contact us you can reach us on hello@shouldigooutnow.com
 [\[3\] https://www.npr.org/sections/goatsandsoda/2020/07/06/887919633/](https://www.npr.org/sections/goatsandsoda/2020/07/06/887919633/)
 
 [\[4\] https://en.wikipedia.org/wiki/Binomial_distribution#Example](https://en.wikipedia.org/wiki/Binomial_distribution#Example)
+
+[\[5\] https://en.wikipedia.org/wiki/Exponential_decay](https://en.wikipedia.org/wiki/Exponential_decay)
