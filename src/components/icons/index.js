@@ -150,7 +150,7 @@ export const FaceMask = ({
   )
 }
 
-export const Question = props => (
+export const QuestionMark = props => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20" {...props}>
     <path
       fillRule="evenodd"

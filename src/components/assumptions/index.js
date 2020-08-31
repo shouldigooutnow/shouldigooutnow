@@ -40,8 +40,8 @@ const CovidProb = ({ covidPresets, selectedCovidProb, onSelectedCovidProbUpdate 
             })}
           </Select>
           <ToolTip
-            id="covid-select"
-            text="This is the data set used to calculate the prevailance of COVID in a community. These numbers are typical based on sampling over a weekly period."
+            id="covid-probability-preset"
+            message="Datasets which monitor the prevalence of COVID in a community. These numbers are typical based on random population sampling."
           />
         </div>
       </div>
@@ -58,17 +58,13 @@ const CovidProb = ({ covidPresets, selectedCovidProb, onSelectedCovidProbUpdate 
           <div className="flex flex-row items-center">
             <PercentageNumberInput
               id="covid-probability"
-              className="inline"
+              className="inline w-32"
               step="0.01"
+              showOneInX
               onChange={newCovidProbability => onSelectedCovidProbUpdate({ ...selectedCovidProb, probability: newCovidProbability })}
               value={selectedCovidProb.probability}
             />
-            <ToolTip
-              id="covid-probability"
-              text={`The probability that someone has Covid 19. This value equates to 1 in ${Math.round(
-                1 / selectedCovidProb.probability
-              )}`}
-            />
+            <ToolTip id="covid-probability" message={`The probability that a random person in the population has Covid-19`} />
           </div>
         </div>
       )}
@@ -113,10 +109,7 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
               )
             })}
           </Select>
-          <ToolTip
-            id="transmission-probability"
-            text="Some preset estimated transmission rates that let you pick how likely you think it is you will catch coronavirus if you are close to someone with it."
-          />
+          <ToolTip message="Preset estimated transmission rates that let you pick how likely you think it is you will catch Covid-19 if you are close to someone with it for 1 hour." />
         </div>
       </div>
       {selectedTransmissionProbs && (
@@ -137,9 +130,9 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
                 />
                 <ToolTip
                   id={`transmission-probability-${a.key}`}
-                  text={`The likelyhood that if someone has ccoronavirus, you will catch it. This value equates to 1 in ${Math.round(
-                    1 / _.get(selectedTransmissionProbs, ['probabilities', a.key])
-                  )}`}
+                  message={`The likelihood that if you're ${_.lowerFirst(
+                    a.name
+                  )} near someone who has Covid-19 for an hour, you will catch it.`}
                 />
               </div>
             </div>

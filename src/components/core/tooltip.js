@@ -1,19 +1,19 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import { Question } from '@/components/icons'
+import { QuestionMark } from '@/components/icons'
 
-export const ToolTip = ({ id, text }) => (
+export const ToolTip = ({ id, message }) => (
   <>
-    <Question className="inline ml-2" data-tip data-for={`tooltip-${id}`} />
-    <ReactTooltip id={`tooltip-${id}`} place="right" effect="solid" backgroundColor="#38b2ac">
-      {text}
+    <QuestionMark className="inline ml-2" data-tip data-for={`tooltip-${id}`} />
+    <ReactTooltip
+      id={`tooltip-${id}`}
+      place="right"
+      effect="solid"
+      className="max-w-lg text-white text-sm "
+      backgroundColor="#38b2ac"
+      clickable
+    >
+      {message}
     </ReactTooltip>
-  </>
-)
-
-export const HtmlToolTip = ({ id, html }) => (
-  <>
-    <Question className="inline ml-2" data-tip={html} data-for={`tooltip-${id}`} />
-    <ReactTooltip id={`tooltip-${id}`} place="right" effect="solid" backgroundColor="#38b2ac" html />
   </>
 )

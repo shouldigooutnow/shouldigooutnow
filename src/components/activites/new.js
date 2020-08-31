@@ -7,7 +7,7 @@ import { Form } from '@/components/core/form'
 import { IntegerNumberInput } from '@/components/core/input'
 import { InputButton } from '@/components/core/button'
 import { Select } from '@/components/core/select'
-import { ToolTip, HtmlToolTip } from '@/components/core/tooltip'
+import { ToolTip } from '@/components/core/tooltip'
 
 import { activities } from '@/model/activities'
 
@@ -39,16 +39,28 @@ export const NewActivity = props => {
         }}
       >
         <p className="text-lg mb-4 inline">Add activites</p>
-        <HtmlToolTip
+        <ToolTip
           id="add-activities"
-          html="<div>
-            <p class='-mx-3 my-2'>Add an activities that you undertook this week here. <b> Note that what matters is the cumulative amount of time with a single group of people. </b> </p>
-            <ul class='list-disc'>
-              <li>If an activity is longer than 2 weeks (the length of a Covid-19 infection), you need to split it into multiple 2 week activities.</li>
-              <li>If multiple activities are with the same people, e.g. going to an office, that should be one activity with a longer duration.</li>
-              <li>If an activity is with different people each time, e.g. riding a bus, that should be one activity for each time you do the activity.</li>
-            </ul>
-          </div>"
+          message={
+            <div className="py-3">
+              <p className="mb-4">Add activities that you might undertake here. </p>
+              <p className="font-bold"> Note that each activity is with a new group of random people and not the same people. </p>
+              <ul class="list-disc space-y-4 ml-3 mt-4">
+                <li>
+                  If an activity is longer than 2 weeks (the length of a Covid-19 infection), you need to split it into multiple 2 week
+                  activities.
+                </li>
+                <li>
+                  If multiple activities are with the same people, e.g. going to an office, that should be one activity with a longer
+                  duration.
+                </li>
+                <li>
+                  If an activity is with different people each time, e.g. riding a bus, that should be one activity for each time you do the
+                  activity.
+                </li>
+              </ul>
+            </div>
+          }
         />
 
         <div className="flex flex-wrap -mx-3">
@@ -74,8 +86,14 @@ export const NewActivity = props => {
             />
             <ToolTip
               id="number-of-people"
-              text="'Number of people nearby' is the number of people you'd be exposed to. e.g. in a conference hall of 1000 people it might be 100 people. 
-              You should include people you share poor ventalation with. E.g. in the same room, or the same part of a large room."
+              message={
+                <div className="py-3 space-y-3">
+                  <p>'Number of other people nearby' is the number of people you'd be exposed to.</p>
+                  <p>e.g. in a large conference hall of 1000 people it might be exposed to 100 people.</p>
+                  <p>You should include people you share poor ventalation with. e.g. in the same room, or the same part of a large room.</p>
+                  <p>Generally you shouldn't include people you share a household with.</p>
+                </div>
+              }
             />
           </div>
         </div>
