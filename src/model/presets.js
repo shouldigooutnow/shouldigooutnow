@@ -19,6 +19,48 @@ export const probSomeoneHasCovidPresets = [
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0004
+  },
+  {
+    shortName: '2020-04-26 England Peak (ONS) Careful',
+    description: '2020-04-26 England Peak Covid-19 (Office National Statistics) "Upper" Value',
+    source:
+      'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
+    probability: 0.0131
+  },
+  {
+    shortName: '2020-04-26 England Peak (ONS) Medium',
+    description: '2020-04-26 England Peak Covid-19 (Office National Statistics) Value',
+    source:
+      'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
+    probability: 0.0064
+  },
+  {
+    shortName: '2020-04-26 England Peak (ONS) Optimistic',
+    description: '2020-08-14 England Peak Covid-19 (Office National Statistics) "Lower" Value',
+    source:
+      'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
+    probability: 0.0026
+  },
+  {
+    shortName: '2020-08-17 London (ONS) Careful',
+    description: '2020-08-17 London (Office National Statistics) "Upper" Value',
+    source:
+      'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
+    probability: 0.0013
+  },
+  {
+    shortName: '2020-08-17 London (ONS) Medium',
+    description: '2020-08-17 London (Office National Statistics) Value',
+    source:
+      'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
+    probability: 0.0007
+  },
+  {
+    shortName: '2020-08-17 London (ONS) Optimistic',
+    description: '2020-08-17 London (Office National Statistics) "Lower" Value',
+    source:
+      'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
+    probability: 0.0002
   }
 ]
 
