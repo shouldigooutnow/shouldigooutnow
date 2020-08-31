@@ -16,13 +16,13 @@ const Activity = props => (
       </div>
       <Trash className="cursor-pointer text-gray-600" onClick={() => props.onDelete()} />
     </div>
-    <div className="flex flex-wrap items-center mt-8 md:mt-4 mb-2">
+    <div className="flex items-start mt-8 md:mt-4 mb-2">
       <Probability probability={props.probSomeoneHasCovid} />
-      <p className="text-md ">chance someone nearby has Covid</p>
+      <p className="text-md mt-3">chance someone nearby has Covid</p>
     </div>
-    <div className="flex flex-wrap items-center mt-8 md:mt-0">
+    <div className="flex items-start mt-8 md:mt-0">
       <Probability className="bg-teal-500" probability={props.probContractingCovid} />
-      <p className="text-md">chance contract Covid</p>
+      <p className="text-md mt-3">chance contracting Covid</p>
     </div>
   </Card>
 )
