@@ -111,6 +111,7 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
             })}
           </Select>
           <ToolTip
+            id="preset-transmission-probs"
             className="mb-2"
             message="Preset estimated transmission rates that let you pick how likely you think it is you will catch Covid-19 if you are close to someone with it for 1 hour."
           />
