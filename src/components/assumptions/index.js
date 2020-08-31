@@ -22,9 +22,9 @@ const CovidProb = ({ covidPresets, selectedCovidProb, onSelectedCovidProbUpdate 
     <div className="flex flex-col">
       <div className="flex flex-col">
         <p className="text-lg mb-1">Estimated probability someone has Covid-19</p>
-        <div>
+        <div className="flex items-center">
           <Select
-            className="md:w-1/2 mt-2 inline"
+            className="md:w-1/2 mt-2 inline min-w-0"
             value={(selectedCovidProb && selectedCovidProb.shortName) || ''}
             onChange={event => onSelectedCovidProbUpdate(allCovidPresets.find(c => c.shortName === event.target.value))}
           >
@@ -41,6 +41,7 @@ const CovidProb = ({ covidPresets, selectedCovidProb, onSelectedCovidProbUpdate 
           </Select>
           <ToolTip
             id="covid-probability-preset"
+            className="mb-2"
             message="Datasets which monitor the prevalence of COVID in a community. These numbers are typical based on random population sampling."
           />
         </div>
@@ -91,7 +92,7 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
         <p className="text-sm my-4">
           <Warning className="inline" /> These presets are not from scientific data
         </p>
-        <div>
+        <div className="flex items-center">
           <Select
             value={(selectedTransmissionProbs && selectedTransmissionProbs.shortName) || ''}
             id="selectedTransmissionProbs"
@@ -109,7 +110,10 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
               )
             })}
           </Select>
-          <ToolTip message="Preset estimated transmission rates that let you pick how likely you think it is you will catch Covid-19 if you are close to someone with it for 1 hour." />
+          <ToolTip
+            className="mb-2"
+            message="Preset estimated transmission rates that let you pick how likely you think it is you will catch Covid-19 if you are close to someone with it for 1 hour."
+          />
         </div>
       </div>
       {selectedTransmissionProbs && (

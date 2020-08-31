@@ -90,7 +90,7 @@ export const NewActivity = props => {
               message={
                 <div className="py-3 space-y-3">
                   <p>'Number of other people nearby' is the number of people you'd be exposed to.</p>
-                  <p>e.g. in a large conference hall of 1000 people it might be exposed to 100 people.</p>
+                  <p>e.g. in a large conference hall of 1000 people, you might expect to be exposed to 100 people.</p>
                   <p>You should include people you share poor ventalation with. e.g. in the same room, or the same part of a large room.</p>
                   <p>Generally you shouldn't include people you share a household with.</p>
                 </div>
