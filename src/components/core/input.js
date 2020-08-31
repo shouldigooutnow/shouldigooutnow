@@ -58,6 +58,7 @@ export const PercentageNumberInput = props => {
         className="w-32"
         {...props}
         type="number"
+        pattern="[0-9.]*"
         step={props.step || '1'}
         max="100"
         value={_.isNumber(props.value) ? _.round(props.value * 100, 9) : ''}
