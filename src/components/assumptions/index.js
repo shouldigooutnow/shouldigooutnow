@@ -121,10 +121,12 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
         <div className="flex flex-row flex-wrap">
           {activities.map(a => (
             <div key={`activity-${a.key}`} className="py-4 w-full sm:w-1/2">
-              <Label htmlFor="transmission-probability">{a.name}</Label>
+              <div className="inline-block">
+                <Label htmlFor={`transmission-probability-${a.key}`}>{a.name}</Label>
+              </div>
               <div className="flex items-center">
                 <PercentageNumberInput
-                  id="transmission-probability"
+                  id={`transmission-probability-${a.key}`}
                   className="w-20 inline"
                   onChange={newTransmissionProb => {
                     let newProbs = { ...selectedTransmissionProbs.probabilities }
