@@ -7,6 +7,7 @@ import { Form } from '@/components/core/form'
 import { IntegerNumberInput } from '@/components/core/input'
 import { InputButton } from '@/components/core/button'
 import { Select } from '@/components/core/select'
+import { ToolTip, HtmlToolTip } from '@/components/core/tooltip'
 
 import { activities } from '@/model/activities'
 
@@ -37,7 +38,19 @@ export const NewActivity = props => {
           })
         }}
       >
-        <p className="text-lg mb-4">Add activites</p>
+        <p className="text-lg mb-4 inline">Add activites</p>
+        <HtmlToolTip
+          id="add-activities"
+          html="<div>
+            <p class='-mx-3 my-2'>Add an activities that you undertook this week here. <b> Note that what matters is the cumulative amount of time with a single group of people. </b> </p>
+            <ul class='list-disc'>
+              <li>If an activity is longer than 2 weeks (the length of a Covid-19 infection), you need to split it into multiple 2 week activities.</li>
+              <li>If multiple activities are with the same people, e.g. going to an office, that should be one activity with a longer duration.</li>
+              <li>If an activity is with different people each time, e.g. riding a bus, that should be one activity for each time you do the activity.</li>
+            </ul>
+          </div>"
+        />
+
         <div className="flex flex-wrap -mx-3">
           <div className="px-3">
             <Label htmlFor="activity">Activity</Label>
@@ -58,6 +71,11 @@ export const NewActivity = props => {
               className="w-20"
               onChange={newNumberOfPeople => setNumberOfPeople(newNumberOfPeople)}
               value={numberOfPeople}
+            />
+            <ToolTip
+              id="number-of-people"
+              text="'Number of people nearby' is the number of people you'd be exposed to. e.g. in a conference hall of 1000 people it might be 100 people. 
+              You should include people you share poor ventalation with. E.g. in the same room, or the same part of a large room."
             />
           </div>
         </div>

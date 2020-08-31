@@ -1,8 +1,10 @@
 import React from 'react'
 import _ from 'lodash'
+
 import { Label } from '@/components/core/label'
 import { PercentageNumberInput } from '@/components/core/input'
 import { Select } from '@/components/core/select'
+import { ToolTip } from '@/components/core/tooltip'
 import { Warning } from '@/components/icons'
 
 import { activities } from '../../model/activities'
@@ -20,22 +22,28 @@ const CovidProb = ({ covidPresets, selectedCovidProb, onSelectedCovidProbUpdate 
     <div className="flex flex-col">
       <div className="flex flex-col">
         <p className="text-lg mb-1">Estimated probability someone has Covid-19</p>
-        <Select
-          className="md:w-1/2 mt-2"
-          value={(selectedCovidProb && selectedCovidProb.shortName) || ''}
-          onChange={event => onSelectedCovidProbUpdate(allCovidPresets.find(c => c.shortName === event.target.value))}
-        >
-          <option value="" disabled>
-            Select a source
-          </option>
-          {allCovidPresets.map(covidPreset => {
-            return (
-              <option key={covidPreset.shortName} value={covidPreset.shortName}>
-                {covidPreset.shortName}
-              </option>
-            )
-          })}
-        </Select>
+        <div>
+          <Select
+            className="md:w-1/2 mt-2 inline"
+            value={(selectedCovidProb && selectedCovidProb.shortName) || ''}
+            onChange={event => onSelectedCovidProbUpdate(allCovidPresets.find(c => c.shortName === event.target.value))}
+          >
+            <option value="" disabled>
+              Select a source
+            </option>
+            {allCovidPresets.map(covidPreset => {
+              return (
+                <option key={covidPreset.shortName} value={covidPreset.shortName}>
+                  {covidPreset.shortName}
+                </option>
+              )
+            })}
+          </Select>
+          <ToolTip
+            id="covid-select"
+            text="This is the data set used to calculate the prevailance of COVID in a community. These numbers are typical based on sampling over a weekly period."
+          />
+        </div>
       </div>
       {selectedCovidProb && (
         <div className="flex flex-col">
@@ -47,12 +55,19 @@ const CovidProb = ({ covidPresets, selectedCovidProb, onSelectedCovidProbUpdate 
               </a>
             )}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-row items-center">
             <PercentageNumberInput
               id="covid-probability"
+              className="inline"
               step="0.01"
               onChange={newCovidProbability => onSelectedCovidProbUpdate({ ...selectedCovidProb, probability: newCovidProbability })}
               value={selectedCovidProb.probability}
+            />
+            <ToolTip
+              id="covid-probability"
+              text={`The probability that someone has Covid 19. This value equates to 1 in ${Math.round(
+                1 / selectedCovidProb.probability
+              )}`}
             />
           </div>
         </div>
@@ -80,39 +95,53 @@ const TranmissionProbs = ({ transmissionPresets, selectedTransmissionProbs, onSe
         <p className="text-sm my-4">
           <Warning className="inline" /> These presets are not from scientific data
         </p>
-        <Select
-          value={(selectedTransmissionProbs && selectedTransmissionProbs.shortName) || ''}
-          id="selectedTransmissionProbs"
-          className="sm:w-40 mt-2"
-          onChange={event => onSelectedTransmissionProbsUpdate(allTransmissionPresets.find(t => t.shortName === event.target.value))}
-        >
-          <option value="" disabled>
-            Select a preset
-          </option>
-          {allTransmissionPresets.map(transmissionPreset => {
-            return (
-              <option key={transmissionPreset.shortName} value={transmissionPreset.shortName}>
-                {transmissionPreset.shortName}
-              </option>
-            )
-          })}
-        </Select>
+        <div>
+          <Select
+            value={(selectedTransmissionProbs && selectedTransmissionProbs.shortName) || ''}
+            id="selectedTransmissionProbs"
+            className="sm:w-40 mt-2 inline"
+            onChange={event => onSelectedTransmissionProbsUpdate(allTransmissionPresets.find(t => t.shortName === event.target.value))}
+          >
+            <option value="" disabled>
+              Select a preset
+            </option>
+            {allTransmissionPresets.map(transmissionPreset => {
+              return (
+                <option key={transmissionPreset.shortName} value={transmissionPreset.shortName}>
+                  {transmissionPreset.shortName}
+                </option>
+              )
+            })}
+          </Select>
+          <ToolTip
+            id="transmission-probability"
+            text="Some preset estimated transmission rates that let you pick how likely you think it is you will catch coronavirus if you are close to someone with it."
+          />
+        </div>
       </div>
       {selectedTransmissionProbs && (
         <div className="flex flex-row flex-wrap">
           {activities.map(a => (
             <div key={`activity-${a.key}`} className="py-4 w-full sm:w-1/2">
               <Label htmlFor="transmission-probability">{a.name}</Label>
-              <PercentageNumberInput
-                id="transmission-probability"
-                className="w-20"
-                onChange={newTransmissionProb => {
-                  let newProbs = { ...selectedTransmissionProbs.probabilities }
-                  newProbs[a.key] = newTransmissionProb
-                  onSelectedTransmissionProbsUpdate({ ...selectedTransmissionProbs, probabilities: newProbs })
-                }}
-                value={_.get(selectedTransmissionProbs, ['probabilities', a.key])}
-              />
+              <div className="flex items-center">
+                <PercentageNumberInput
+                  id="transmission-probability"
+                  className="w-20 inline"
+                  onChange={newTransmissionProb => {
+                    let newProbs = { ...selectedTransmissionProbs.probabilities }
+                    newProbs[a.key] = newTransmissionProb
+                    onSelectedTransmissionProbsUpdate({ ...selectedTransmissionProbs, probabilities: newProbs })
+                  }}
+                  value={_.get(selectedTransmissionProbs, ['probabilities', a.key])}
+                />
+                <ToolTip
+                  id={`transmission-probability-${a.key}`}
+                  text={`The likelyhood that if someone has ccoronavirus, you will catch it. This value equates to 1 in ${Math.round(
+                    1 / _.get(selectedTransmissionProbs, ['probabilities', a.key])
+                  )}`}
+                />
+              </div>
             </div>
           ))}
         </div>
