@@ -2,10 +2,27 @@ import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 import { formatProbabilityAs1InX } from '@/common/format'
+import { useWindowDimensions } from '@/common/windowDimensions'
 
 const defaultClassNames =
   'shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-export const Input = props => <input {...props} className={classNames(defaultClassNames, props.className)} />
+
+export const Input = props => {
+  const { isMobile } = useWindowDimensions()
+
+  return (
+    <input
+      {...props}
+      onKeyPress={e => {
+        if (isMobile && e.key === 'Enter') {
+          e.target.blur()
+        }
+        props.onKeyPress && props.onKeyPress(e)
+      }}
+      className={classNames(defaultClassNames, props.className)}
+    />
+  )
+}
 
 export const IntegerNumberInput = props => (
   <Input
@@ -41,6 +58,7 @@ export const PercentageNumberInput = props => {
         className="w-32"
         {...props}
         type="number"
+        pattern="[0-9.]*"
         step={props.step || '1'}
         max="100"
         value={_.isNumber(props.value) ? _.round(props.value * 100, 9) : ''}
@@ -50,9 +68,12 @@ export const PercentageNumberInput = props => {
           }
         }}
         onChange={event => {
-          console.log(event.target)
-          if (event.target.value === '') {
+          if (event.target.value === '' && `${props.value * 100}`.length === 1) {
             props.onChange(null)
+            return
+          }
+          if (event.target.value === '') {
+            props.onChange(props.value)
             return
           }
           const number = event.target.value
