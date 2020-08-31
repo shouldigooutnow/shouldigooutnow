@@ -38,13 +38,15 @@ The % of people in a population with Covid-19 varies significantly by country an
 
 This project is [open source on github](https://github.com/shouldigooutnow/shouldigooutnow/blob/master/src/model/index.js).
 
-Model inputs:
+### Model inputs
 
 ```
 probabilitySomeoneInPopulationHasCovid
 
 probabilityOfTransmissionPerHourDoingActivity
 ```
+
+### Binomial probability mass function
 
 Our model uses Binomial probability mass function \[4\].
 
@@ -56,13 +58,17 @@ e.g The probability of flipping a coin 6 times and getting 4 heads:
 bpmf(6, 4, 0.5)
 ```
 
+### Exponential decay
+
+We use exponential decay \[5\] to calculate the probability you contract covid. [Example](https://math.stackexchange.com/a/153612)
+
 ### Calculating the probability someone present during an activity has Covid
 
 #### Assumptions
 
 The model does **not** assume that some people stay home to self-isolate and are therefore not in the general population.
 
-Each activity assumes those people are a random sample from the population, some activities, e.g. going to an Office, might repeatively expose you to the same people.
+Each activity assumes those people are a random sample from the population, some activities, e.g. going to an Office, might repeatively expose you to the same people. If you're exposed to the same people repeatively you can work around this by creating a longer duration activity representing total time spent together. If it's over a two week period, you should split into multiple activities, since those people might have contracted Covid in that time.
 
 #### Methodology
 
@@ -81,7 +87,7 @@ This relies on the `probabilitySomeoneInPopulationHasCovid` being accurate, we a
 
 We make the assumption that you'll only be exposed to a single person at a time. Since the probability of being exposed to multiple people is currently quite low and even in a large crowd of say 2000, you're unlikely to be exposed to all the people in that crowd.
 
-We suggest entering the number of people you'd be exposed to: people nearby, or in the same room.
+We suggest entering the number of people you'd be exposed to: people nearby, or in the same room (for aerosol spread).
 
 #### Method
 
