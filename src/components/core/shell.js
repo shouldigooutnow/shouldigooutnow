@@ -9,11 +9,11 @@ export const Shell = props => (
       <div className="container flex flex-wrap items-center justify-between mx-auto py-4 flex-1">
         <p className="mr-2 text-white">
           Made with <FaceMask className="inline mb-1" stringColor="white" maskColor="white" maskTopColor="grey" /> by{' '}
-          <Link className="text-white underline" href="https://www.linkedin.com/in/richardgill3">
+          <Link className="text-white underline" href="mailto:hello@shouldigotoutnow.com">
             Richard
           </Link>{' '}
           and{' '}
-          <Link className="text-white underline" href="https://www.linkedin.com/in/irfy">
+          <Link className="text-white underline" href="mailto:hello@shouldigotoutnow.com">
             Irfan
           </Link>
         </p>
