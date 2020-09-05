@@ -42,22 +42,22 @@ export const probSomeoneHasCovidPresets = [
     probability: 0.0004
   },
   {
-    shortName: '2020-08-17 London (ONS) Careful',
-    description: '2020-08-17 London (Office National Statistics) "Upper" Value',
+    shortName: '2020-08-24 London (ONS) Careful',
+    description: '2020-08-24 London (Office National Statistics) "Upper" Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
-    probability: 0.0013
+    probability: 0.0011
   },
   {
-    shortName: '2020-08-17 London (ONS) Medium',
-    description: '2020-08-17 London (Office National Statistics) Value',
+    shortName: '2020-08-24 London (ONS) Medium',
+    description: '2020-08-24 London (Office National Statistics) Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
-    probability: 0.0007
+    probability: 0.0005
   },
   {
-    shortName: '2020-08-17 London (ONS) Optimistic',
-    description: '2020-08-17 London (Office National Statistics) "Lower" Value',
+    shortName: '2020-08-24 London (ONS) Optimistic',
+    description: '2020-08-24 London (Office National Statistics) "Lower" Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0002
