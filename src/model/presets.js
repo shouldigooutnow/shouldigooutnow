@@ -1,42 +1,42 @@
 export const probSomeoneHasCovidPresets = [
   {
-    shortName: '2020-04-26 England Peak (ONS) Careful',
-    description: '2020-04-26 England Peak Covid-19 (Office National Statistics) "Upper" Value',
+    shortName: '2020-05-01 England Peak (ONS) Careful',
+    description: '2020-05-01 England Peak Covid-19 (Office National Statistics) "Upper" Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0131
   },
   {
-    shortName: '2020-04-26 England Peak (ONS) Medium',
-    description: '2020-04-26 England Peak Covid-19 (Office National Statistics) Value',
+    shortName: '2020-05-01 England Peak (ONS) Medium',
+    description: '2020-05-01 England Peak Covid-19 (Office National Statistics) Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0064
   },
   {
-    shortName: '2020-04-26 England Peak (ONS) Optimistic',
-    description: '2020-08-14 England Peak Covid-19 (Office National Statistics) "Lower" Value',
+    shortName: '2020-05-01 England Peak (ONS) Optimistic',
+    description: '2020-05-01 England Peak Covid-19 (Office National Statistics) "Lower" Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0026
   },
   {
-    shortName: '2020-08-19 England (ONS) Careful',
-    description: '2020-08-19 England (Office National Statistics) "Upper" Value',
+    shortName: '2020-08-25 England (ONS) Careful',
+    description: '2020-08-25 England (Office National Statistics) "Upper" Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0007
   },
   {
-    shortName: '2020-08-19 England (ONS) Medium',
-    description: '2020-08-19 England (Office National Statistics) Value',
+    shortName: '2020-08-25 England (ONS) Medium',
+    description: '2020-08-25 England (Office National Statistics) Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0005
   },
   {
-    shortName: '2020-08-19 England (ONS) Optimistic',
-    description: '2020-08-19 England (Office National Statistics) "Lower" Value',
+    shortName: '2020-08-25 England (ONS) Optimistic',
+    description: '2020-08-25 England (Office National Statistics) "Lower" Value',
     source:
       'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/englandandwales21august2020#number-of-people-in-england-who-had-covid-19',
     probability: 0.0004
