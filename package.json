@@ -67,6 +67,7 @@
     "react-scripts": "3.4.0",
     "react-tooltip": "^4.2.9",
     "sort-package-json": "^1.22.1",
+    "tailwind-override": "^0.0.3",
     "tailwindcss": "^1.7.5",
     "urijs": "^1.19.2"
   },

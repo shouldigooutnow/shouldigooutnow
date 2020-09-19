@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import classNames from 'classnames'
+import { classNames } from '@/common/classnames'
 import { QuestionMark } from '@/components/icons'
 
 import { useWindowDimensions } from '@/common/windowDimensions'
