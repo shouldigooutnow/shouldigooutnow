@@ -1,5 +1,5 @@
 import React from 'react'
-import classNames from 'classnames'
+import { classNames } from '@/common/classnames'
 import { formatProbability } from '@/common/format'
 
 export const Probability = props => (

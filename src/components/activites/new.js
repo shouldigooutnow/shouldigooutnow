@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
-import classNames from 'classnames'
 
+import { classNames } from '@/common/classnames'
 import { Label } from '@/components/core/label'
 import { Form } from '@/components/core/form'
 import { IntegerNumberInput } from '@/components/core/input'

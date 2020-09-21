@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
-import classNames from 'classnames'
+
+import { classNames } from '@/common/classnames'
 import { formatProbabilityAs1InX } from '@/common/format'
 import { useWindowDimensions } from '@/common/windowDimensions'
 
