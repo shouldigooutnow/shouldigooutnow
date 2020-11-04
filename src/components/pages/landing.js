@@ -10,7 +10,7 @@ import { Warning } from '@/components/icons'
 import * as Model from '@/model'
 import * as ModelPresets from '@/model/presets'
 
-const areTranmissionProbsValid = transmissionProbs => {
+export const areTranmissionProbsValid = transmissionProbs => {
   return (
     transmissionProbs &&
     transmissionProbs.probabilities &&
@@ -23,7 +23,6 @@ const areTranmissionProbsValid = transmissionProbs => {
 
 export const Landing = () => {
   const [activities, setActivities] = useState([])
-
   const [modelCovidPresets] = useState(ModelPresets.probSomeoneHasCovidPresets)
   const [selectedCovidProb, onSelectedCovidProbUpdate] = useState(null)
   const [modelTransmissionPresets] = useState(ModelPresets.probTransmissionPresets)
