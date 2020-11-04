@@ -1,5 +1,6 @@
 import React from 'react'
 import { Landing } from '@/components/pages/landing'
+import { Examples } from '@/components/pages/examples'
 import { Methodology } from '@/components/pages/methodology'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import URI from 'urijs'
@@ -9,6 +10,10 @@ const routes = [
   {
     path: '/methodology',
     component: Methodology
+  },
+  {
+    path: '/examples',
+    component: Examples
   },
   {
     path: '/',
