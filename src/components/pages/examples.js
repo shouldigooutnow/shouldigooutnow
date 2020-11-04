@@ -21,7 +21,6 @@ const ExampleTable = props => (
     </thead>
     <tbody>
       {props.examples.map(example => {
-        console.log(example)
         return (
           <tr>
             <td class="border px-4 py-2">
@@ -119,7 +118,7 @@ const examples = [
     activities: repeat(4, schoolClass)
   }
 ]
-console.log(examples)
+
 export const Examples = () => {
   const [modelCovidPresets] = useState(ModelPresets.probSomeoneHasCovidPresets)
   const [selectedCovidProb, onSelectedCovidProbUpdate] = useState(null)
