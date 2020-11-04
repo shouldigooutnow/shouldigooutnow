@@ -40,7 +40,7 @@ const ExampleTable = props => (
 )
 
 const trainJourney = { activity: 'indoorsOthersFaceCovered', activityName: 'Indoors', durationMins: 30, numberOfPeople: 10 }
-const schoolClass = { activity: 'indoors', activityName: 'Indoors', durationMins: 30, numberOfPeople: 10 }
+const schoolClass = { activity: 'indoors', activityName: 'Indoors', durationMins: 60 * 3, numberOfPeople: 12 }
 
 const examples = [
   {
@@ -83,22 +83,22 @@ const examples = [
     activities: [{ activity: 'indoors', activityName: 'Indoors', durationMins: 60 * 3, numberOfPeople: 6 }]
   },
   {
-    name: 'Being at work in office with 5 people Mon-Fri for 1 week',
+    name: 'Being in office with 5 people Mon-Fri for 1 week',
     toolTip: 'Indoors for 40 hours with same 5 people no masks',
     activities: [{ activity: 'indoors', activityName: 'Indoors', durationMins: 60 * 8 * 5, numberOfPeople: 5 }]
   },
   {
-    name: 'Being at work in office with 5 people Mon-Wed for 1 week',
+    name: 'Being in office with 5 people Mon-Wed for 1 week',
     toolTip: 'Indoors for 24 hours with same 5 people no masks',
     activities: [{ activity: 'indoors', activityName: 'Indoors', durationMins: 60 * 8 * 3, numberOfPeople: 5 }]
   },
   {
-    name: 'Being at work in office with 10 people Mon-Fri for 1 week',
+    name: 'Being in office with 10 people Mon-Fri for 1 week',
     toolTip: 'Indoors for 40 hours with same 10 people no masks',
     activities: [{ activity: 'indoors', activityName: 'Indoors', durationMins: 60 * 8 * 5, numberOfPeople: 10 }]
   },
   {
-    name: 'Being at work in office with 10 people Mon-Wed for 1 week',
+    name: 'Being in office with 10 people Mon-Wed for 1 week',
     toolTip: 'Indoors for 24 hours with same 10 people no masks',
     activities: [{ activity: 'indoors', activityName: 'Indoors', durationMins: 60 * 8 * 3, numberOfPeople: 10 }]
   },
